@@ -11,18 +11,18 @@
 	<!-- DBCP 사용을 위한 DataSource를 Bean으로 등록 -->
 	<!-- 
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-	  <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-	  <property name="username" value="kh_final" />
-	  <property name="password" value="kh_final1234" />
-	
-	  <property name="defaultAutoCommit" value="false" />
-	
-	  <property name="initialSize" value="10" /> 
-	  <property name="maxTotal" value="500" /> 
-	  <property name="maxIdle" value="100" /> 
-	  <property name="minIdle" value="10" /> 
-	  <property name="maxWaitMillis" value="-1" /> 
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		<property name="url" value="jdbc:sqlserver://172.16.103.190:1433;databaseName=FdcVmsDB;integratedSecurity=false;encrypt=false;trustServerCertificate=false;sslProtocol=TLSv1;" />
+		<property name="username" value="sa" />
+		<property name="password" value="j$b!c&amp;1" />
+		
+		<property name="defaultAutoCommit" value="false" />
+		
+		<property name="initialSize" value="10" /> 
+		<property name="maxTotal" value="500" /> 
+		<property name="maxIdle" value="100" /> 
+		<property name="minIdle" value="10" /> 
+		<property name="maxWaitMillis" value="-1" /> 
 	</bean>
 	 -->
 	
