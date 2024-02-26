@@ -11,4 +11,11 @@ import lombok.ToString;
 @ToString
 public class Main {
 	
+	
+	//테이블 데이터
+	private String gateName;
+	private String gateStatus;
+	private String commStatus;
+	
+	
 }

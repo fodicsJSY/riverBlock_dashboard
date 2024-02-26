@@ -3,6 +3,26 @@
 <mapper namespace="mainMapper">
 
 	<!-- 여기에 작성 -->
+	
+	<resultMap type="Main" id="_main">
+	
+		<!-- 테이블 데이터 -->
+      	<result property="gateName" column="gate_name" />
+      	<result property="gateStatus" column="gate_status" />
+      	<result property="commStatus" column="comm_status" />
+	</resultMap> 
+	
+	
+	<select id="tableDataList" resultMap="_main">
+		SELECT
+		camera_name AS gate_name
+		, CASE WHEN status = 1 THEN 'open'
+		WHEN status = 0 THEN 'close'
+		ELSE'' END AS gate_status
+		, CASE WHEN status = 1 OR status = 0 THEN 'on'
+		ELSE'off'END AS comm_status
+		FROM TB_CIRCUIT_BREAKER_CONFIG
+	</select>
 
 
 </mapper>
