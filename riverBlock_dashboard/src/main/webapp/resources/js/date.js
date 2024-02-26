@@ -1,11 +1,30 @@
     /* 전역변수 시작 */
-    var forDate = new Date(document.getElementById('inputDate').value);
+    var forDate;
     /* 전역변수 끝 */
 
     /* 오늘 날짜로 초기화 시작*/
     // 페이지 로드 시 오늘 날짜로 초기화
     document.addEventListener("DOMContentLoaded", ()=> {
+
+        // inputDate 엘리먼트 초기화
+        var inputDate = document.getElementById('inputDate');
+        
+        // forDate 변수 초기화
+        forDate = new Date(inputDate.value);
+
+        // inputDate 엘리먼트 값 변경 이벤트 핸들러 등록
+        inputDate.addEventListener('change', function() {
+            sendToServer(this.value);
+        });
+
+        // 초기화 함수 호출
         today();
+
+        // 차트호출
+        openDounutChart();
+        closeDounutChart();
+        lineChart();
+        makeTable();
     });
     /* 오늘 날짜로 초기화 끝*/
 
@@ -72,7 +91,6 @@ function afterOneDay(){
     document.getElementById('inputDate').value = formattedDate;
     forDate = formattedDate; // forDate 초기화
     console.log("다음 날짜 : ", forDate);
-    
 }
 
 
@@ -107,15 +125,16 @@ function before1weekBtn(){
     console.log("formattedDate : ", formattedDate);
     forDate = formattedDate; // forDate 초기화
     console.log("1주전 날짜 : ", forDate);
-    
 }
 
 
-
+// input태그 날짜 직접 입력
 inputDate.addEventListener('keyup', function() {
     console.log("inputDate 변경됨 : ", this.value);
     sendToServer(this.value);
 });
+
+
 
 
 
@@ -125,13 +144,37 @@ function sendToServer(value) {
     let occuDate = formatToYYYYMMDD(value || forDate);
     console.log('Sending occuDate to server:', occuDate); // 콘솔에 occuDate 값 로그 출력
 
+    fetch("/sendDate", { 
+        method : "POST", 
+        headers: {"Content-Type": "application/json;"}, 
+        body : JSON.stringify( {"occuDate":occuDate} ) 
+    })
+    .then(resp => resp.json()) // 요청에 대한 응답 객체(response)를 필요한 형태로 파싱
+    .then((result) => {
+        console.log("result", result );
+
+        // 차트호출
+        openDounutChart();
+        closeDounutChart();
+        lineChart();
+        makeTable();
+
+
+        
+    }) // 첫 번째 then에서 파싱한 데이터를 이용한 동작 작성
+    .catch( err => {
+        console.log("err : ", err);
+    }); // 예외 발생 시 처리할 내용을 작성
 }
+
 
 /* 날짜 형식화 함수 */
 /* YYYYMMDD 형식으로 변환하는 함수 */
+/* YYYY-MM-DD 형식으로 변환하는 함수 */
 function formatToYYYYMMDD(dateString) {
-    var year = dateString.substring(0, 4);
-    var month = dateString.substring(5, 7);
-    var day = dateString.substring(8, 10);
+    var date = new Date(dateString);
+    var year = date.getFullYear();
+    var month = (date.getMonth() + 1).toString().padStart(2, '0');
+    var day = date.getDate().toString().padStart(2, '0');
     return year + month + day;
 }

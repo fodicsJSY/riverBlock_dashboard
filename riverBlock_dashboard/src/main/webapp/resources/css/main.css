@@ -459,10 +459,10 @@ button{
 .inputDateBtn{
     background-color: #1A1A1A;
     border-radius: 4px;
-    /* width: 100%; */
+    width: 20%;
     height: 60%;
     padding-left: 10px;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
 }
 
 /* 달력 아이콘 없애기*/
@@ -559,6 +559,18 @@ button{
     padding: 10px 0;
 }
 
+.gateName{
+    width: 60%;
+}
+
+.gateYN{
+    width: 20%;
+}
+
+.signal{
+    width: 20%;
+}
+
 .gatetd{
     min-height: 31px;
     height: 15%;
@@ -580,7 +592,7 @@ button{
     position: relative;
     min-width: 48px;
     min-height: 18px;
-    width: 60%;
+    width: 40%;
     height: 100%;
 }
 

@@ -160,7 +160,7 @@
                             </div>
                             <div class="dataBox tablebox">
                                 <div class="tableContainer">
-                                    <table class="gateTable">
+                                    <%-- <table class="gateTable">
                                         <thead class="gateThead">
                                             <tr>
                                                 <th class="gateth">게이트명</th>
@@ -173,11 +173,11 @@
                                             <tr >
                                                 <td class="gatetd">게이트 이름</td>
                                                 <td class="gatetd">게이트 위치</td>
-                                                <td class="gatetd gate"><div class="gateIconBox"><img src="/resources/img/iconBTN_GateClose.png" class="gateIcon" alt=""></div></td>
-                                                <td class="gatetd"><div class="signalIconBox"><img src="/resources/img/connect-signalNO.png" class="signalIcon" alt=""></div></td>
+                                                <td class="gatetd gate"><div class="gateIconBox"><img src="/resources/img/iconBTN_GateClose.png" class="gateIcon"></div></td>
+                                                <td class="gatetd"><div class="signalIconBox"><img src="/resources/img/connect-signalNO.png" class="signalIcon"></div></td>
                                             </tr>
                                         </tbody>
-                                    </table>
+                                    </table> --%>
                                 </div>
                             </div>
                         </div>
@@ -222,9 +222,10 @@
     <%-- 전역변수 끝 --%>
 
     <%-- js --%>
+    <script src="/resources/js/date.js"></script>
     <script src="/resources/js/lineChart.js"></script>
     <script src="/resources/js/openCountChart.js"></script>
     <script src="/resources/js/closeCountChart.js"></script>
-    <script src="/resources/js/date.js"></script>
+    <script src="/resources/js/table.js"></script>
 </body>
 </html>
