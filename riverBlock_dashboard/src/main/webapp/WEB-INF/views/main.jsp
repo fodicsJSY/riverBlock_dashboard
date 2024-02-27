@@ -159,24 +159,6 @@
                             </div>
                             <div class="dataBox tablebox">
                                 <div class="tableContainer">
-                                    <%-- <table class="gateTable">
-                                        <thead class="gateThead">
-                                            <tr>
-                                                <th class="gateth">게이트명</th>
-                                                <th class="gateth">위치</th>
-                                                <th class="gateth">개폐여부</th>
-                                                <th class="gateth">통신상태</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="gateTbody">
-                                            <tr >
-                                                <td class="gatetd">게이트 이름</td>
-                                                <td class="gatetd">게이트 위치</td>
-                                                <td class="gatetd gate"><div class="gateIconBox"><img src="/resources/img/iconBTN_GateClose.png" class="gateIcon"></div></td>
-                                                <td class="gatetd"><div class="signalIconBox"><img src="/resources/img/connect-signalNO.png" class="signalIcon"></div></td>
-                                            </tr>
-                                        </tbody>
-                                    </table> --%>
                                 </div>
                             </div>
                         </div>
