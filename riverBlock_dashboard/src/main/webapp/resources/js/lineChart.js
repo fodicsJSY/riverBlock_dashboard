@@ -3,6 +3,13 @@ function lineChart(){
     
     var dateDataChart = echarts.init(document.getElementById('dateData'));
 
+    function resizeChart() {
+        dateDataChart.resize();
+    }
+
+    // 창 크기가 변경될 때 차트 크기를 자동으로 조절
+    window.addEventListener('resize', resizeChart);
+
     option = {
         legend: {
                 orient: 'vertical',

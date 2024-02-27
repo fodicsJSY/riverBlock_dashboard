@@ -15,6 +15,15 @@ function closeDounutChart(data){
     console.log("시간별 폐문 차트");
     var closeCountChart = echarts.init(document.getElementById('closeCount'));
     
+
+    function resizeChart() {
+        closeCountChart.resize();
+    }
+
+    // 창 크기가 변경될 때 차트 크기를 자동으로 조절
+    window.addEventListener('resize', resizeChart);
+
+
     option = {
     
         legend: {

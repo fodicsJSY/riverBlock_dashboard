@@ -18,6 +18,13 @@ function openDounutChart(data){
     console.log("시간별 개문 차트");
     var openCountChart = echarts.init(document.getElementById('openCount'));
 
+    function resizeChart() {
+        openCountChart.resize();
+    }
+
+    // 창 크기가 변경될 때 차트 크기를 자동으로 조절
+    window.addEventListener('resize', resizeChart);
+
     option = {
         legend: {
             orient: 'vertical',
