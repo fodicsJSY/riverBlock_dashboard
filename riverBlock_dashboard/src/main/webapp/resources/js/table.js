@@ -1,5 +1,11 @@
+let tableDataList; 
+
 function makeTable(data){
+    tableDataList = data.tableDataList;
+
+    console.log("tableDataList", tableDataList );
     console.log("테이블 생성");
+
     var tableContainer = document.querySelector(".tableContainer");
     tableContainer.innerHTML = ""; // Clear previous data
 
@@ -27,28 +33,48 @@ function makeTable(data){
     var tr = document.createElement("tr");
     gateTbody.appendChild(tr);
 
-    createCell(tr, "td", "gatetd", data);
 
-    var div1 = document.createElement("div");
-    div1.className = "gateIconBox";
-    tr.appendChild(div1);
-    
-    let gateImg =  document.createElement("img");
-    gateImg.className = "gateIcon";
-    gateImg.src = "/resources/img/iconBTN_GateClose.png";
-    div1.appendChild(gateImg);
+    // 데이터 삽입
+    tableDataList.forEach(function (item) {    
+        var tr = document.createElement("tr");
+        gateTbody.appendChild(tr);
+        createCell(tr, "td", "gatetd", item.gateName);
 
-    let signalImg =  document.createElement("img");
-    signalImg.className = "signalIcon";
-    signalImg.src = "/resources/img/connect-signalNO.png";
+        var div1 = document.createElement("div");
+        div1.className = "gateIconBox";
+        tr.appendChild(div1);
 
+        let gateImg =  document.createElement("img");
+        gateImg.className = "gateIcon";
 
+        if(item.gateStatus == 'close'){
+            gateImg.src = "/resources/img/iconBTN_GateClose.png";
+        }
+        if(item.gateStatus == 'open'){
+            gateImg.src = "/resources/img/iconBTN_GateOpen.png";
+        }
 
-    // createCell(tr, "td", "gatetd", data);
-    createCell(tr, "td", "gatetd gate", div1);
-    createCell(tr, "td", "gatetd", signalImg.outerHTML);
+        div1.appendChild(gateImg);
+        
+        let signalImg =  document.createElement("img");
+        signalImg.className = "signalIcon";
+
+        
+        if(item.commStatus == 'on'){
+            signalImg.src = "/resources/img/connect-signalOK.png";
+        }
+        if(item.commStatus == 'off'){
+            signalImg.src = "/resources/img/connect-signalNO.png";
+        }
+
+        // createCell(tr, "td", "gatetd", data);
+        createCell(tr, "td", "gatetd gate", div1);
+        createCell(tr, "td", "gatetd", signalImg.outerHTML);
+    });
 }
 
+
+// 셀 생성 함수
 function createCell(row, elementType, className, content) {
     var cell = document.createElement(elementType);
     cell.className = className;
