@@ -20,11 +20,9 @@
         // 초기화 함수 호출
         today();
 
-        // 차트호출
-        openDounutChart();
-        closeDounutChart();
-        lineChart();
-        makeTable();
+        // 날짜 보내기 
+        sendToServer(forDate);
+
     });
     /* 오늘 날짜로 초기화 끝*/
 
@@ -137,6 +135,7 @@ inputDate.addEventListener('keyup', function() {
 
 
 
+let data;
 
 /* 날짜 보내기 */
 function sendToServer(value) {
@@ -153,11 +152,14 @@ function sendToServer(value) {
     .then((result) => {
         console.log("result", result );
 
+        data = result;
+
+
         // 차트호출
-        openDounutChart();
-        closeDounutChart();
+        openDounutChart(data);
+        closeDounutChart(data);
         lineChart();
-        makeTable();
+        makeTable(data);
 
 
         
@@ -166,6 +168,8 @@ function sendToServer(value) {
         console.log("err : ", err);
     }); // 예외 발생 시 처리할 내용을 작성
 }
+
+
 
 
 /* 날짜 형식화 함수 */

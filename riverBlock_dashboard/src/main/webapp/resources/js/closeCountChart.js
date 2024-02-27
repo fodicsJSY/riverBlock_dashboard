@@ -1,6 +1,17 @@
+let closeGateList; 
 
+function closeDounutChart(data){
 
-function closeDounutChart(){
+    closeGateList = data.closeGateList;
+    let closeTimeCnt0 = closeGateList[0].closeTimeCnt0;
+    let closeTimeCnt1 = closeGateList[0].closeTimeCnt1;
+    let closeTimeCnt2 = closeGateList[0].closeTimeCnt2;
+    let closeTimeCnt3 = closeGateList[0].closeTimeCnt3;
+    let closeTimeCnt4 = closeGateList[0].closeTimeCnt4;
+    let closeTimeCnt5 = closeGateList[0].closeTimeCnt5;
+    console.log("closeTimeCnt0", closeTimeCnt0 );
+    console.log("closeGateList", closeGateList );
+
     console.log("시간별 폐문 차트");
     var closeCountChart = echarts.init(document.getElementById('closeCount'));
     
@@ -41,12 +52,12 @@ function closeDounutChart(){
                 show: false
             },
             data: [
-                { value: 1048, name: '새벽/오전', itemStyle: { color: '#00A9FF' } },
-                { value: 735, name: '점심시간', itemStyle: { color: '#FFB840' } },
-                { value: 580, name: '오후', itemStyle: { color: '#FF5A46' } },
-                { value: 484, name: '퇴근시간', itemStyle: { color: '#00BD9F' } },
-                { value: 300, name: '저녁', itemStyle: { color: '#785FFF' } },
-                { value: 350, name: '심야', itemStyle: { color: '#F28B8C' } }
+                { value: closeTimeCnt0, name: '새벽/오전', itemStyle: { color: '#00A9FF' } },
+                { value: closeTimeCnt1, name: '점심시간', itemStyle: { color: '#FFB840' } },
+                { value: closeTimeCnt2, name: '오후', itemStyle: { color: '#FF5A46' } },
+                { value: closeTimeCnt3, name: '퇴근시간', itemStyle: { color: '#00BD9F' } },
+                { value: closeTimeCnt4, name: '저녁', itemStyle: { color: '#785FFF' } },
+                { value: closeTimeCnt5, name: '심야', itemStyle: { color: '#F28B8C' } }
             ]
             }
         ]

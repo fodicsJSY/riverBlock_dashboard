@@ -1,9 +1,20 @@
 
 
 
+let openGateList; 
+
+function openDounutChart(data){
+    openGateList = data.openGateList;
+    let openTimeCnt0 = openGateList[0].openTimeCnt0;
+    let openTimeCnt1 = openGateList[0].openTimeCnt1;
+    let openTimeCnt2 = openGateList[0].openTimeCnt2;
+    let openTimeCnt3 = openGateList[0].openTimeCnt3;
+    let openTimeCnt4 = openGateList[0].openTimeCnt4;
+    let openTimeCnt5 = openGateList[0].openTimeCnt5;
+    console.log("openTimeCnt0", openTimeCnt0 );
 
 
-function openDounutChart(){
+
     console.log("시간별 개문 차트");
     var openCountChart = echarts.init(document.getElementById('openCount'));
 
@@ -43,12 +54,12 @@ function openDounutChart(){
                 show: false
             },
             data: [
-                { value: 1048, name: '새벽/오전', itemStyle: { color: '#00A9FF' } },
-                { value: 735, name: '점심시간', itemStyle: { color: '#FFB840' } },
-                { value: 580, name: '오후', itemStyle: { color: '#FF5A46' } },
-                { value: 484, name: '퇴근시간', itemStyle: { color: '#00BD9F' } },
-                { value: 300, name: '저녁', itemStyle: { color: '#785FFF' } },
-                { value: 350, name: '심야', itemStyle: { color: '#F28B8C' } }
+                { value: openTimeCnt0, name: '새벽/오전', itemStyle: { color: '#00A9FF' } },
+                { value: openTimeCnt1, name: '점심시간', itemStyle: { color: '#FFB840' } },
+                { value: openTimeCnt2, name: '오후', itemStyle: { color: '#FF5A46' } },
+                { value: openTimeCnt3, name: '퇴근시간', itemStyle: { color: '#00BD9F' } },
+                { value: openTimeCnt4, name: '저녁', itemStyle: { color: '#785FFF' } },
+                { value: openTimeCnt5, name: '심야', itemStyle: { color: '#F28B8C' } }
             ]
             }
         ]
@@ -61,13 +72,6 @@ function openDounutChart(){
 
 
 
-
-/* main페이지 load 시 */
-// window.addEventListener('resize', function() {
-//     openCountChart.resize();
-//     closeCountChart.resize();
-//     dateDataChart.resize();
-// });
 
 
 

@@ -22,7 +22,6 @@
 
 
     </style>
-    
 
 
 </head>
@@ -210,14 +209,6 @@
     <%-- 전역변수 시작 --%>
     <script>
         // var kimpo7to8Count = ${kimpo7to8Count != null ? kimpo7to8Count : 0};
-        // var kimpo8to9Count = ${kimpo8to9Count != null ? kimpo8to9Count : 0};
-        // var kimpo9to10Count = ${kimpo9to10Count != null ? kimpo9to10Count : 0};
-        // var gochon7to8Count = ${gochon7to8Count != null ? gochon7to8Count : 0};
-        // var gochon8to9Count = ${gochon8to9Count != null ? gochon8to9Count : 0};
-        // var gochon9to10Count = ${gochon9to10Count != null ? gochon9to10Count : 0};
-        // var pungmu7to8Count = ${pungmu7to8Count != null ? pungmu7to8Count : 0};
-        // var pungmu8to9Count = ${pungmu8to9Count != null ? pungmu8to9Count : 0};
-        // var pungmu9to10Count = ${pungmu9to10Count != null ? pungmu9to10Count : 0};
     </script>
     <%-- 전역변수 끝 --%>
 

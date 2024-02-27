@@ -16,6 +16,23 @@ public class Main {
 	private String gateName;
 	private String gateStatus;
 	private String commStatus;
+
+	//개문 도넛차트 데이터
+	private String openTimeCnt0;
+	private String openTimeCnt1;
+	private String openTimeCnt2;
+	private String openTimeCnt3;
+	private String openTimeCnt4;
+	private String openTimeCnt5;
+	
+	// 폐문 도넛차트 데이터
+	private String closeTimeCnt0;
+	private String closeTimeCnt1;
+	private String closeTimeCnt2;
+	private String closeTimeCnt3;
+	private String closeTimeCnt4;
+	private String closeTimeCnt5;
+	
 	
 	
 }

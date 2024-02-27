@@ -417,6 +417,7 @@ button{
 }
 
 .calendarBtn{
+    min-width: 32px;
     width: 4.1%;
     height: 60%;
     background-color: #000000;

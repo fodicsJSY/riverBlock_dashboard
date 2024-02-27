@@ -5,14 +5,113 @@
 	<!-- 여기에 작성 -->
 	
 	<resultMap type="Main" id="_main">
-	
 		<!-- 테이블 데이터 -->
       	<result property="gateName" column="gate_name" />
       	<result property="gateStatus" column="gate_status" />
       	<result property="commStatus" column="comm_status" />
+      	<result property="openTimeCnt0" column="open_time_cnt_0" />
+      	<result property="openTimeCnt1" column="open_time_cnt_1" />
+      	<result property="openTimeCnt2" column="open_time_cnt_2" />
+      	<result property="openTimeCnt3" column="open_time_cnt_3" />
+      	<result property="openTimeCnt4" column="open_time_cnt_4" />
+      	<result property="openTimeCnt5" column="open_time_cnt_5" />
+      	<result property="closeTimeCnt0" column="close_time_cnt_0" />
+      	<result property="closeTimeCnt1" column="close_time_cnt_1" />
+      	<result property="closeTimeCnt2" column="close_time_cnt_2" />
+      	<result property="closeTimeCnt3" column="close_time_cnt_3" />
+      	<result property="closeTimeCnt4" column="close_time_cnt_4" />
+      	<result property="closeTimeCnt5" column="close_time_cnt_5" />
 	</resultMap> 
 	
 	
+	 <!-- 개문횟수 -->
+	<select id="openGateList" resultMap="_main">
+		DECLARE
+		@fr_time_0		NVARCHAR(8) = '00:00:00'
+		, @to_time_0	NVARCHAR(8) = '10:59:99'
+		, @fr_time_1	NVARCHAR(8) = '11:00:00'
+		, @to_time_1	NVARCHAR(8) = '12:59:99'
+		, @fr_time_2	NVARCHAR(8) = '13:00:00'
+		, @to_time_2	NVARCHAR(8) = '16:59:99'
+		, @fr_time_3	NVARCHAR(8) = '17:00:00'
+		, @to_time_3	NVARCHAR(8) = '19:59:99'
+		, @fr_time_4	NVARCHAR(8) = '20:00:00'
+		, @to_time_4	NVARCHAR(8) = '21:59:99'
+		, @fr_time_5	NVARCHAR(8) = '21:00:00'
+		, @to_time_5	NVARCHAR(8) = '23:59:99'
+		SELECT
+		SUM(DATA.time_0) AS open_time_cnt_0
+		, SUM(DATA.time_1) AS open_time_cnt_1
+		, SUM(DATA.time_2) AS open_time_cnt_2
+		, SUM(DATA.time_3) AS open_time_cnt_3
+		, SUM(DATA.time_4) AS open_time_cnt_4
+		, SUM(DATA.time_5) AS open_time_cnt_5
+		FROM
+		(
+		SELECT
+		CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_0 AND @to_time_0 THEN 1
+		ELSE 0 END AS time_0
+		, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_1 AND @to_time_1 THEN 1
+		ELSE 0 END AS time_1
+		, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_2 AND @to_time_2 THEN 1
+		ELSE 0 END AS time_2
+		, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_3 AND @to_time_3 THEN 1
+		ELSE 0 END AS time_3
+		, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_4 AND @to_time_4 THEN 1
+		ELSE 0 END AS time_4
+		, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_5 AND @to_time_5 THEN 1
+		ELSE 0 END AS time_5
+		FROM dbo.TB_CIRCUIT_BREAKER_LOG
+		WHERE log_date = #{occuDate}
+		AND gate_cmd = 1
+		) DATA
+	</select>
+	
+	
+	<!-- 폐문횟수 -->
+	<select id="closeGateList" resultMap="_main">
+		DECLARE
+		@fr_time_0		NVARCHAR(8) = '00:00:00'
+		, @to_time_0	NVARCHAR(8) = '10:59:99'
+		, @fr_time_1	NVARCHAR(8) = '11:00:00'
+		, @to_time_1	NVARCHAR(8) = '12:59:99'
+		, @fr_time_2	NVARCHAR(8) = '13:00:00'
+		, @to_time_2	NVARCHAR(8) = '16:59:99'
+		, @fr_time_3	NVARCHAR(8) = '17:00:00'
+		, @to_time_3	NVARCHAR(8) = '19:59:99'
+		, @fr_time_4	NVARCHAR(8) = '20:00:00'
+		, @to_time_4	NVARCHAR(8) = '21:59:99'
+		, @fr_time_5	NVARCHAR(8) = '21:00:00'
+		, @to_time_5	NVARCHAR(8) = '23:59:99'
+		SELECT
+		SUM(DATA.time_0) AS close_time_cnt_0
+		, SUM(DATA.time_1) AS close_time_cnt_1
+		, SUM(DATA.time_2) AS close_time_cnt_2
+		, SUM(DATA.time_3) AS close_time_cnt_3
+		, SUM(DATA.time_4) AS close_time_cnt_4
+		, SUM(DATA.time_5) AS close_time_cnt_5
+		FROM
+		(
+		SELECT
+		CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_0 AND @to_time_0 THEN 1
+		ELSE 0 END AS time_0
+		, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_1 AND @to_time_1 THEN 1
+		ELSE 0 END AS time_1
+		, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_2 AND @to_time_2 THEN 1
+		ELSE 0 END AS time_2
+		, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_3 AND @to_time_3 THEN 1
+		ELSE 0 END AS time_3
+		, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_4 AND @to_time_4 THEN 1
+		ELSE 0 END AS time_4
+		, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_5 AND @to_time_5 THEN 1
+		ELSE 0 END AS time_5
+		FROM dbo.TB_CIRCUIT_BREAKER_LOG
+		WHERE log_date = #{occuDate}
+		AND gate_cmd = 0
+		) DATA
+	</select>
+	
+	<!-- 테이블 데이터 -->
 	<select id="tableDataList" resultMap="_main">
 		SELECT
 		camera_name AS gate_name
@@ -23,6 +122,14 @@
 		ELSE'off'END AS comm_status
 		FROM TB_CIRCUIT_BREAKER_CONFIG
 	</select>
+	
+	
+	<!-- 막대차트 -->
+	<!-- 
+	<select id="">
+	
+	</select>
+	 -->
 
 
 </mapper>

@@ -5,14 +5,13 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	
-	
+
 	
 	<!-- DBCP 사용을 위한 DataSource를 Bean으로 등록 -->
-	<!-- 
+ 
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-		<property name="url" value="jdbc:sqlserver://172.16.103.190:1433;databaseName=FdcVmsDB;integratedSecurity=false;encrypt=false;trustServerCertificate=false;sslProtocol=TLSv1;" />
+		<property name="url" value="jdbc:sqlserver://172.16.110.77:1433;databaseName=FdcVmsDB;integratedSecurity=false;encrypt=false;trustServerCertificate=false;sslProtocol=TLSv1.2;" />
 		<property name="username" value="sa" />
 		<property name="password" value="j$b!c&amp;1" />
 		
@@ -24,29 +23,25 @@
 		<property name="minIdle" value="10" /> 
 		<property name="maxWaitMillis" value="-1" /> 
 	</bean>
-	 -->
-	
+
 	
    
    <!-- 마이바티스 SqlSession 등록하기 (xml 방식으로 bean 등록) -->
-   <!--
    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
       <property name="configLocation" value="classpath:mybatis-config.xml" />
       <property name="dataSource" ref="dataSource" />
    </bean>
-    -->
+
    
    <!-- SqlSessionTemplate : 기본 SQL 실행 + 트랜잭션 관리 역할을 하는 SqlSession을 생성할 수 있게 하는 객체(Spring bean으로 등록해야함.) -->
-   <!--
    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
       <constructor-arg ref="sqlSessionFactoryBean" />
    </bean>
-    -->
+
    
    <!-- 스프링에서 사용하는 proxy를 이용한 트랜잭션 제어가 안될 경우 추가적인 트랜잭션 매니저를 추가해서 문제 해결 -->
-   <!-- 
    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
       <property name="dataSource" ref="dataSource" />
    </bean>
-		 -->
+
 </beans>
