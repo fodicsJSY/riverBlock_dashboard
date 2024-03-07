@@ -34,35 +34,35 @@
 
 
     document.getElementById('leftBtn').addEventListener("click", ()=>{
-        console.log("leftBtn클릭");
+        // console.log("leftBtn클릭");
         beforeOneDay();
         sendToServer();
     });
 
 
     document.getElementById('rightBtn').addEventListener("click", ()=>{
-        console.log("rightBtn클릭");
+        // console.log("rightBtn클릭");
         afterOneDay();
         sendToServer();
     });
 
 
     document.getElementById('yesterdayBtn').addEventListener("click", ()=>{
-        console.log("yesterdayBtn클릭");
+        // console.log("yesterdayBtn클릭");
         yesterday();
         sendToServer();
     });
 
 
     document.getElementById('todayBtn').addEventListener("click", ()=>{
-        console.log("todayBtn클릭");
+        // console.log("todayBtn클릭");
         today();
         sendToServer();
     });
 
 
     document.getElementById('beforeWeekBtn').addEventListener("click", ()=>{
-        console.log("beforeWeekBtn클릭");
+        // console.log("beforeWeekBtn클릭");
         before1weekBtn();
         sendToServer();
     });
@@ -77,7 +77,7 @@ function beforeOneDay(){
     var formattedDate = inputDate.toISOString().substring(0, 10);
     document.getElementById('inputDate').value = formattedDate;
     forDate = formattedDate; // forDate 업데이트
-    console.log("하루 전 : ", forDate);
+    // console.log("하루 전 : ", forDate);
 }
 
 
@@ -88,7 +88,7 @@ function afterOneDay(){
     var formattedDate = inputDate.toISOString().substring(0, 10);
     document.getElementById('inputDate').value = formattedDate;
     forDate = formattedDate; // forDate 초기화
-    console.log("다음 날짜 : ", forDate);
+    // console.log("다음 날짜 : ", forDate);
 }
 
 
@@ -98,9 +98,9 @@ function yesterday(){
     yesterday.setDate(yesterday.getDate() - 1); // 어제의 날짜로 설정
     var formattedDate = yesterday.toISOString().substring(0, 10);
     inputDate.value = formattedDate;
-    console.log("formattedDate : ", formattedDate);
+    // console.log("formattedDate : ", formattedDate);
     forDate = formattedDate; // forDate 초기화
-    console.log("어제 날짜 : ", forDate);
+    // console.log("어제 날짜 : ", forDate);
 }
 
 
@@ -109,9 +109,9 @@ function today(){
     var today = new Date();
     var formattedDate = today.toISOString().substring(0, 10);
     inputDate.value = formattedDate;
-    console.log("formattedDate : ", formattedDate);
+    // console.log("formattedDate : ", formattedDate);
     forDate = formattedDate; // forDate 초기화
-    console.log("오늘날짜 : ", forDate);
+    // console.log("오늘날짜 : ", forDate);
 }
 
 // 1주 전으로 초기화
@@ -120,15 +120,15 @@ function before1weekBtn(){
     beforeOneWeek.setDate(beforeOneWeek.getDate() - 7); 
     var formattedDate = beforeOneWeek.toISOString().substring(0, 10);
     document.getElementById('inputDate').value = formattedDate;
-    console.log("formattedDate : ", formattedDate);
+    // console.log("formattedDate : ", formattedDate);
     forDate = formattedDate; // forDate 초기화
-    console.log("1주전 날짜 : ", forDate);
+    // console.log("1주전 날짜 : ", forDate);
 }
 
 
 // input태그 날짜 직접 입력
 inputDate.addEventListener('keyup', function() {
-    console.log("inputDate 변경됨 : ", this.value);
+    // console.log("inputDate 변경됨 : ", this.value);
     sendToServer(this.value);
 });
 
@@ -141,7 +141,7 @@ let data;
 function sendToServer(value) {
     // 형식을 YYYYMMDD로 변경
     let occuDate = formatToYYYYMMDD(value || forDate);
-    console.log('Sending occuDate to server:', occuDate); // 콘솔에 occuDate 값 로그 출력
+    // console.log('Sending occuDate to server:', occuDate); // 콘솔에 occuDate 값 로그 출력
 
     fetch("/sendDate", { 
         method : "POST", 
@@ -150,22 +150,21 @@ function sendToServer(value) {
     })
     .then(resp => resp.json()) // 요청에 대한 응답 객체(response)를 필요한 형태로 파싱
     .then((result) => {
-        console.log("result", result );
+        // console.log("result", result );
 
         data = result;
 
-
         // 차트호출
+        lineChart(data);
+        makeTable(data);
+        liveInfomation(data);
         openDounutChart(data);
         closeDounutChart(data);
-        lineChart();
-        makeTable(data);
-
 
         
     }) // 첫 번째 then에서 파싱한 데이터를 이용한 동작 작성
     .catch( err => {
-        console.log("err : ", err);
+        // console.log("err : ", err);
     }); // 예외 발생 시 처리할 내용을 작성
 }
 

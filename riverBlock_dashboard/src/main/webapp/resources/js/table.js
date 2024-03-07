@@ -3,8 +3,8 @@ let tableDataList;
 function makeTable(data){
     tableDataList = data.tableDataList;
 
-    console.log("tableDataList", tableDataList );
-    console.log("테이블 생성");
+    // console.log("tableDataList", tableDataList );
+    // console.log("테이블 생성");
 
     var tableContainer = document.querySelector(".tableContainer");
     tableContainer.innerHTML = ""; // Clear previous data
@@ -47,19 +47,27 @@ function makeTable(data){
         let gateImg =  document.createElement("img");
         gateImg.className = "gateIcon";
 
+        
+        // console.log("item.gateStatus : ", item.gateStatus );
+        
+
         if(item.gateStatus == 'close'){
             gateImg.src = "/resources/img/iconBTN_GateClose.png";
         }
         if(item.gateStatus == 'open'){
             gateImg.src = "/resources/img/iconBTN_GateOpen.png";
         }
-
         div1.appendChild(gateImg);
+        
+        if(item.gateStatus == ''){
+            div1.innerHTML = "-";
+        }
+
         
         let signalImg =  document.createElement("img");
         signalImg.className = "signalIcon";
 
-        
+        // console.log("item.commStatus : ", item.commStatus );
         if(item.commStatus == 'on'){
             signalImg.src = "/resources/img/connect-signalOK.png";
         }

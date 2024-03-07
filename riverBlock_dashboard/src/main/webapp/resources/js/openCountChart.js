@@ -1,21 +1,25 @@
-
-
-
 let openGateList; 
 
 function openDounutChart(data){
     openGateList = data.openGateList;
+
+        // 이전에 있던 차트 객체가 있으면 삭제
+        if (openCountChart || openGateList == null) {
+            openCountChart.dispose();
+        }
+    
     let openTimeCnt0 = openGateList[0].openTimeCnt0;
     let openTimeCnt1 = openGateList[0].openTimeCnt1;
     let openTimeCnt2 = openGateList[0].openTimeCnt2;
     let openTimeCnt3 = openGateList[0].openTimeCnt3;
     let openTimeCnt4 = openGateList[0].openTimeCnt4;
     let openTimeCnt5 = openGateList[0].openTimeCnt5;
-    console.log("openTimeCnt0", openTimeCnt0 );
+    // console.log("openTimeCnt0", openTimeCnt0 );
+    // console.log("시간별 개문 차트");
 
 
+    
 
-    console.log("시간별 개문 차트");
     var openCountChart = echarts.init(document.getElementById('openCount'));
 
     function resizeChart() {
@@ -74,12 +78,4 @@ function openDounutChart(data){
 
     openCountChart.setOption(option);
 }
-
-
-
-
-
-
-
-
 

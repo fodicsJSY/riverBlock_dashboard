@@ -3,18 +3,24 @@ let closeGateList;
 function closeDounutChart(data){
 
     closeGateList = data.closeGateList;
+    // console.log("closeGateList", closeGateList );
+
     let closeTimeCnt0 = closeGateList[0].closeTimeCnt0;
     let closeTimeCnt1 = closeGateList[0].closeTimeCnt1;
     let closeTimeCnt2 = closeGateList[0].closeTimeCnt2;
     let closeTimeCnt3 = closeGateList[0].closeTimeCnt3;
     let closeTimeCnt4 = closeGateList[0].closeTimeCnt4;
     let closeTimeCnt5 = closeGateList[0].closeTimeCnt5;
-    console.log("closeTimeCnt0", closeTimeCnt0 );
-    console.log("closeGateList", closeGateList );
+    // console.log("closeTimeCnt0", closeTimeCnt0 );
 
-    console.log("시간별 폐문 차트");
-    var closeCountChart = echarts.init(document.getElementById('closeCount'));
-    
+    // console.log("시간별 폐문 차트");
+
+
+    // 이전에 있던 차트 객체가 있으면 삭제
+    if (closeCountChart || closeGateList == null) {
+        closeCountChart.dispose();
+    }
+
 
     function resizeChart() {
         closeCountChart.resize();
@@ -23,9 +29,9 @@ function closeDounutChart(data){
     // 창 크기가 변경될 때 차트 크기를 자동으로 조절
     window.addEventListener('resize', resizeChart);
 
-
-    option = {
+    var closeCountChart = echarts.init(document.getElementById('closeCount'));
     
+    option = {
         legend: {
             orient: 'vertical',
             right: 0, // 오른쪽으로 이동

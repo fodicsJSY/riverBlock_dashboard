@@ -34,5 +34,15 @@ public class Main {
 	private String closeTimeCnt5;
 	
 	
+	// 게이트 현황
+	private String gateTotalCnt;
+	private String gateOpenCnt;
+	private String gateCloseCnt;
+	private String gateDisableCnt;
+	
+	
+	// 카메라 현황
+	private String cameraTotalCnt;
+	private String ipAddr;
 	
 }

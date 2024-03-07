@@ -1,40 +1,30 @@
-
-html{
-    font-size: 15px;
-}
-
-*{ 
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    /* background-color: #1e1e1e; */
-    color:white;
-    font-family: NanumSquareEB;
-}
-
-a:hover{
-    cursor: pointer;
-}
+@media all and (min-width:1903px){
+    html{
+		font-size: 15px;
+	}
 
 
-/* 다 만들고 삭제예정 */
-/* div, main, section, header, footer, article, nav, aside, form 
-{ border: 1px solid yellow; }  
-*/
 body {
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+    /* min-width: 1800px;
+    min-height: 1050p;
+    width: 90vw;
+    height: 100vh;  */
     width: 100%;
-    height: 100vh;
-    min-width: 1920px;
+    height: 100%;
     min-height: 937px;
 }
 
 
 
 main{
+    /* margin: auto; */
     width: 100%;
     height: 100%;
     background-color: #333;
-    min-height: 937px;
+    
 }
 
 
@@ -43,7 +33,7 @@ section{
     height:90%;
     display: flex;
     flex-direction: row;
-    min-height: 937px;
+    /* justify-content: center; */
 }
 
 
@@ -63,7 +53,6 @@ section{
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    min-height: 70.27px;
     height: 7.5%;
     border-bottom: 1px solid #000;
     width: 100%;
@@ -112,7 +101,6 @@ section{
 
 
 .innerBox04{
-    min-height: 203.94px;
     height: 22%;
 }
 
@@ -151,14 +139,12 @@ section{
 
 .containerBox01{
     background: #1F1F1F;
-    min-height: 937px;
     height: 100%; 
     width: 100%;
 }
 
 .leftTitleBox{
     width: 100%;
-    min-height: 51.53px;
     height: 25%;
     display: flex; 
     flex-direction: row; 
@@ -178,7 +164,6 @@ section{
     flex-direction: row; 
     justify-content: start;
     align-items: center;
-    min-height: 37.09px;
     height: 30%;
 }
 
@@ -261,7 +246,7 @@ section{
 
 .containerBox02{
     background: #333;
-    padding: 0.5% 0 0.3% 1.5%;
+    padding: 0.5% 0.5% 0.3% 1.8%;
     width:99%;
     height:100vh;
 }
@@ -272,10 +257,9 @@ section{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    min-width: 1650px;
+    min-width: 1618px;
     width: 98.5%;
     height: 5%;
-    min-height: 46.16px;
     /* border: 1px solid yellow; */
     margin: 0 0 0.3% 0;
 }
@@ -292,7 +276,7 @@ section{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    min-width: 1650px;
+    min-width: 1618px;
     width: 99%;
     min-height: 398px;
     height: 40%;
@@ -612,3 +596,4 @@ button{
 
 
 /****************** 데이터 현황 테이블 끝 *******************/
+}
