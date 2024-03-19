@@ -15,7 +15,6 @@ function closeDounutChart(data){
 
     // console.log("시간별 폐문 차트");
 
-
     // 이전에 있던 차트 객체가 있으면 삭제
     if (closeCountChart || closeGateList == null) {
         closeCountChart.dispose();

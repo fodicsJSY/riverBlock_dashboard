@@ -37,7 +37,7 @@
                 </div>
                 <div class="innerBox04">
                     <div class="leftTitleBox" >
-                        <div class="leftImgContainer"><img src="/resources/img/iconList_favorite.png" class="markerIcon" alt=""></div>
+                        <div class="leftImgContainer"><img src="/resources/img/iconList_gate.png" class="markerIcon" alt=""></div>
                         <div class="leftTitle">게이트 현황</div>
                     </div>
                     <div class="dataContainer01">
@@ -167,7 +167,7 @@
                     </div>
                 </div>
                 <div class="innerBox01 innerFooter">
-                    <div class="text"> ※ 화면에 표시된 모든 실시간 데이터는 1분마다 자동으로 업데이트 합니다. 다만 "시간대별 현황" 그래프의 실시간 데이터는 정시에 한 번씩 업데이트 합니다.</div>
+                    <div class="text"> ※ 화면에 표시된 모든 실시간 데이터는 1분마다 자동으로 업데이트 합니다. </div><!--다만 "시간대별 현황" 그래프의 실시간 데이터는 정시에 한 번씩 업데이트 합니다.-->
                     <div><img src="/resources/img/fodics_logo.png" alt=""></div>
                 </div>
             </div>
@@ -192,6 +192,7 @@
     <script src="/resources/js/table.js"></script>
     <script src="/resources/js/liveInfo.js"></script>
     <script src="/resources/js/lineChart.js"></script>
+    <script src="/resources/js/refresh.js"></script>
     <script src="/resources/js/openCountChart.js"></script>
     <script src="/resources/js/closeCountChart.js"></script>
 </body>

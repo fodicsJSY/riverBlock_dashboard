@@ -17,6 +17,7 @@ function liveInfomation(data){
     gateLiveList = data.gateLiveList;
     cameraCount = data.cameraCount;
     cameraIpList = data.cameraIpList;
+    console.log("cameraIpList", cameraIpList);
 
     // console.log("gateLiveList", gateLiveList);
     // console.log("gateLiveList[0].gateCloseCnt", gateLiveList[0].gateCloseCnt);

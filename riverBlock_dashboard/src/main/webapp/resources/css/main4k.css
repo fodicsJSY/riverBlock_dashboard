@@ -267,7 +267,7 @@
 
     .innerBox02{
         display: flex;
-        flex-direction: row;
+        /* flex-direction: row; */
         justify-content: space-between;
         min-width: 1680px;
         /* width: 90%; */
