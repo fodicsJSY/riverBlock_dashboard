@@ -16,7 +16,7 @@
 
     <%-- css --%>
     <link rel="stylesheet" href="/resources/css/main.css">
-    <%-- <link rel="stylesheet" href="/resources/css/mainHD.css"> --%>
+    <link rel="stylesheet" href="/resources/css/mainHD.css">
     <link rel="stylesheet" href="/resources/css/main4k.css">
 
     <style>

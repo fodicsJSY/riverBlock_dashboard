@@ -261,7 +261,7 @@ section{
 
 .containerBox02{
     background: #333;
-    padding: 0.5% 0 0.3% 1.5%;
+    padding: 0.8% 0 0.3% 1.5%;
     width:99%;
     height:100vh;
 }
@@ -294,7 +294,7 @@ section{
     justify-content: space-between;
     min-width: 1650px;
     width: 99%;
-    min-height: 398px;
+    min-height: 410px;
     height: 40%;
     /* height: 30%; */
     /* border: 1px solid red; */
@@ -306,7 +306,7 @@ section{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 398px;
+    min-height: 410px;
 }
 
 .chartBox{
@@ -363,7 +363,7 @@ section{
 
 .text{
     color: #D9B678;
-    font-size: 0.7rem;
+    font-size: 1rem;
     text-align: center;
 }
 
