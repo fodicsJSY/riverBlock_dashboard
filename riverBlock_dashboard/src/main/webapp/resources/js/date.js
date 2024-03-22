@@ -26,8 +26,6 @@
     });
     /* 오늘 날짜로 초기화 끝*/
 
-
-
     
     document.getElementById('calenderButton').addEventListener('change', function() {
         inputDate.value = this.value;
