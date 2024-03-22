@@ -1,4 +1,5 @@
 let closeGateList; 
+var closeCountChart;
 
 function closeDounutChart(data){
 
@@ -21,14 +22,8 @@ function closeDounutChart(data){
     }
 
 
-    function resizeChart() {
-        closeCountChart.resize();
-    }
 
-    // 창 크기가 변경될 때 차트 크기를 자동으로 조절
-    window.addEventListener('resize', resizeChart);
-
-    var closeCountChart = echarts.init(document.getElementById('closeCount'));
+    closeCountChart = echarts.init(document.getElementById('closeCount'));
     
     option = {
         legend: {

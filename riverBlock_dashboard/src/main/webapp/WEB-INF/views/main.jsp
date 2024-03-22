@@ -189,11 +189,12 @@
 
     <%-- js --%>
     <script src="/resources/js/date.js"></script>
-    <script src="/resources/js/table.js"></script>
-    <script src="/resources/js/liveInfo.js"></script>
     <script src="/resources/js/lineChart.js"></script>
-    <script src="/resources/js/refresh.js"></script>
     <script src="/resources/js/openCountChart.js"></script>
     <script src="/resources/js/closeCountChart.js"></script>
+    <script src="/resources/js/main.js"></script>
+    <script src="/resources/js/table.js"></script>
+    <script src="/resources/js/liveInfo.js"></script>
+    <script src="/resources/js/refresh.js"></script>
 </body>
 </html>
