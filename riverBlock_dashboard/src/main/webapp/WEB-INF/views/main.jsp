@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="/resources/css/main.css">
     <link rel="stylesheet" href="/resources/css/mainHD.css">
     <link rel="stylesheet" href="/resources/css/main4k.css">
+    <%-- sweetalert2 --%>
+    <script src="/resources/js/sweetalert/sweetalert2.js"></script>
 
     <style>
     </style>
@@ -121,7 +123,10 @@
                         <button class="textBtn abled" id="todayBtn">오늘</button>
                         <button class="textBtn abled" id="beforeWeekBtn">1주전</button>
                     </div>
-                    <div class="statsBtnBox"><button class="statsBtn" ><img src="/resources/img/icon_stats.png" class="statsIcon" alt="" disabled>&nbsp;통계</button></div>
+                    <div class="btnContainer">
+                        <div class="statsBtnBox"><button class="textBtn abled settingBtn" id="settingButton">설정</button></div>
+                        <div class="statsBtnBox"><button class="statsBtn" ><img src="/resources/img/icon_stats.png" class="statsIcon" alt="" disabled>&nbsp;통계</button></div>
+                    </div>
                 </div>
 
                 
@@ -195,6 +200,7 @@
     <script src="/resources/js/main.js"></script>
     <script src="/resources/js/table.js"></script>
     <script src="/resources/js/liveInfo.js"></script>
-    <script src="/resources/js/refresh.js"></script>
+    <script src="/resources/js/dbSetting.js"></script>
+    <%-- <script src="/resources/js/refresh.js"></script> --%>
 </body>
 </html>

@@ -134,35 +134,6 @@
 	</select>
 	
 	
-	<!-- 막대차트 -->
-	<select id="daliyCountList" resultMap="_main">
-		DECLARE
-			@tb_temp_camera
-			TABLE
-			(
-			camera_name NVARCHAR(50)
-			, cnt INT
-			)
-			INSERT INTO @tb_temp_camera
-			SELECT TOP 10
-			camera_name
-			, COUNT(camera_name) AS cnt
-			FROM TB_CIRCUIT_BREAKER_LOG
-			WHERE CONVERT(VARCHAR(7), log_date, 120) = LEFT(#{occuDate}, 7)
-
-			GROUP BY camera_name
-			ORDER BY cnt DESC
-			SELECT
-			GLOG.log_date
-			, GLOG.camera_name
-			, COUNT(GLOG.log_date) AS cnt
-			FROM TB_CIRCUIT_BREAKER_LOG GLOG
-			WHERE CONVERT(VARCHAR(7), GLOG.log_date, 120) = LEFT(#{occuDate}, 7)
-
-			AND GLOG.camera_name IN (SELECT camera_name FROM @tb_temp_camera)
-			GROUP BY GLOG.log_date, GLOG.camera_name
-			ORDER BY GLOG.log_date, GLOG.camera_name
-	</select>
 	
 	
 	<!-- 게이트 현황(왼쪽) -->
@@ -187,7 +158,7 @@
 	<select id="cameraCount" resultMap="_int">
 		SELECT
 		COUNT(ip_addr) AS camera_total_cnt
-		FROM TB_CAMERA;
+		FROM TB_CAMERA
 	</select>
 	
 	
@@ -195,7 +166,7 @@
 	<select id="cameraIpList" resultMap="_main">
 		SELECT
 		ip_addr
-		FROM TB_CAMERA;
+		FROM TB_CAMERA
 	</select>
 	
 	
