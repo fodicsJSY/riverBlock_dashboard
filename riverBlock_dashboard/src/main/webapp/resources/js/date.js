@@ -11,13 +11,13 @@ document.addEventListener("DOMContentLoaded", ()=> {
 
     // inputDate 엘리먼트 초기화
     var inputDate = document.getElementById('inputDate');
-    dataBaseIP ="172.16.0.93"
+    savedIP ="172.16.0.93"
     // forDate 변수 초기화
     forDate = new Date(inputDate.value);
 
     // inputDate 엘리먼트 값 변경 이벤트 핸들러 등록
     inputDate.addEventListener('change', function() {
-        sendToServer(dataBaseIP, this.value);
+        sendToServer(savedIP, this.value);
     });
 
     // 초기화 함수 호출
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
 
 
     // 날짜 보내기 
-    sendToServer(dataBaseIP, forDate);
+    sendToServer(savedIP, forDate);
 
 });
 
@@ -35,42 +35,42 @@ document.addEventListener("DOMContentLoaded", ()=> {
     
     document.getElementById('calenderButton').addEventListener('change', function() {
         inputDate.value = this.value;
-        sendToServer(dataBaseIP, this.value);
+        sendToServer(savedIP, this.value);
     });
 
 
     document.getElementById('leftBtn').addEventListener("click", ()=>{
         // console.log("leftBtn클릭");
         beforeOneDay();
-        sendToServer(dataBaseIP, forDate);
+        sendToServer(savedIP, forDate);
     });
 
 
     document.getElementById('rightBtn').addEventListener("click", ()=>{
         // console.log("rightBtn클릭");
         afterOneDay();
-        sendToServer(dataBaseIP, forDate);
+        sendToServer(savedIP, forDate);
     });
 
 
     document.getElementById('yesterdayBtn').addEventListener("click", ()=>{
         // console.log("yesterdayBtn클릭");
         yesterday();
-        sendToServer(dataBaseIP, forDate);
+        sendToServer(savedIP, forDate);
     });
 
 
     document.getElementById('todayBtn').addEventListener("click", ()=>{
         // console.log("todayBtn클릭");
         today();
-        sendToServer(dataBaseIP, forDate);
+        sendToServer(savedIP, forDate);
     });
 
 
     document.getElementById('beforeWeekBtn').addEventListener("click", ()=>{
         // console.log("beforeWeekBtn클릭");
         before1weekBtn();
-        sendToServer(dataBaseIP, forDate);
+        sendToServer(savedIP, forDate);
     });
 
 
@@ -136,7 +136,7 @@ function before1weekBtn(){
 // input태그 날짜 직접 입력
 inputDate.addEventListener('keyup', function() {
     // console.log("inputDate 변경됨 : ", this.value);
-    sendToServer(dataBaseIP, this.value);
+    sendToServer(savedIP, this.value);
 });
 
 
@@ -144,11 +144,11 @@ inputDate.addEventListener('keyup', function() {
 let data;
 
 /* 날짜 보내기 */
-async function sendToServer(dataBaseIP, value) {
+async function sendToServer(savedIP, value) {
     // 형식을 YYYYMMDD로 변경
     let occuDate = formatToYYYYMMDD(value || forDate);
     console.log('Sending occuDate to server:', occuDate); // 콘솔에 occuDate 값 로그 출력
-    console.log('sendToServer dataBaseIP:', dataBaseIP); // 콘솔에 dataBaseIP 값 로그 출력
+    console.log('sendToServer savedIP:', savedIP); // 콘솔에 savedIP 값 로그 출력
 
     
 
@@ -186,7 +186,7 @@ async function sendToServer(dataBaseIP, value) {
     // // fetchData2 함수를 호출하고 결과를 처리하는 예제
     (async () => {
         try {
-            await fetchData2(dataBaseIP, occuDate);
+            await fetchData2(savedIP, occuDate);
             // fetchData 함수에서 반환한 데이터를 이용하여 원하는 작업 수행
         } catch (error) {
             console.error('Error occurred:', error);
@@ -476,11 +476,11 @@ function formatToYYYYMMDD(dateString) {
     return year + month + day;
 }
 
-async function fetchData2(dataBaseIP, occuDate){
+async function fetchData2(savedIP, occuDate){
     var DBip = "172.16.0.93";
 
     console.log('fetchData2 occuDate:', occuDate); // 콘솔에 occuDate 값 로그 출력
-    console.log('fetchData2 dataBaseIP:', dataBaseIP); // 콘솔에 dataBaseIP 값 로그 출력
+    console.log('fetchData2 savedIP:', savedIP); // 콘솔에 savedIP 값 로그 출력
     
 
 
@@ -489,7 +489,7 @@ async function fetchData2(dataBaseIP, occuDate){
             method: "POST",
             headers: { "Content-Type": "application/json;" },
             body: JSON.stringify({
-                "serverip": dataBaseIP,
+                "serverip": savedIP,
                 "query": "SELECT COUNT(ip_addr) AS camera_total_cnt FROM TB_CAMERA"
             })
         }).then(resp => resp.json());
@@ -498,7 +498,7 @@ async function fetchData2(dataBaseIP, occuDate){
             method: "POST",
             headers: { "Content-Type": "application/json;" },
             body: JSON.stringify({
-                "serverip": dataBaseIP,
+                "serverip": savedIP,
                 "query": "SELECT ip_addr FROM TB_CAMERA"
             })
         }).then(resp => resp.json());
@@ -508,7 +508,7 @@ async function fetchData2(dataBaseIP, occuDate){
             method: "POST",
             headers: { "Content-Type": "application/json;" },
             body: JSON.stringify({
-                "serverip": dataBaseIP,
+                "serverip": savedIP,
                 "query": "SELECT SUM(DATA.gate_total) AS gate_total_cnt, SUM(DATA.gate_open) AS gate_open_cnt, SUM(DATA.gate_close) AS gate_close_cnt, SUM(DATA.gate_disable) AS gate_disable_cnt FROM (SELECT 1 AS gate_total, CASE WHEN status = 1 THEN 1 ELSE 0 END AS gate_open	, CASE WHEN status = 0 THEN 1 ELSE 0 END AS gate_close, CASE WHEN status = 0 THEN 0 WHEN  status = 1 THEN 0 ELSE 1 END AS gate_disable FROM TB_CIRCUIT_BREAKER_CONFIG) DATA"
             })
         }).then(resp => resp.json());
@@ -520,7 +520,7 @@ async function fetchData2(dataBaseIP, occuDate){
         // fetchData 함수를 호출하고 결과를 처리하는 예제
         (async () => {
             try {
-                await fetchData(dataBaseIP, occuDate);
+                await fetchData(savedIP, occuDate);
                 // fetchData 함수에서 반환한 데이터를 이용하여 원하는 작업 수행
                 
                 // 각각의 응답 데이터를 이용하여 원하는 작업 수행
@@ -539,12 +539,12 @@ async function fetchData2(dataBaseIP, occuDate){
 
 
 
-async function fetchData(dataBaseIP, occuDate) {
+async function fetchData(savedIP, occuDate) {
     console.log("여기!");
 
     var DBip = "172.16.0.93";
     console.log('fetchData occuDate:', occuDate); // 콘솔에 occuDate 값 로그 출력
-    console.log('fetchData dataBaseIP:', dataBaseIP); // 콘솔에 dataBaseIP 값 로그 출력
+    console.log('fetchData savedIP:', savedIP); // 콘솔에 savedIP 값 로그 출력
     
     
 
@@ -555,7 +555,7 @@ async function fetchData(dataBaseIP, occuDate) {
             method: "POST",
             headers: { "Content-Type": "application/json;" },
             body: JSON.stringify({
-                "serverip": dataBaseIP,
+                "serverip": savedIP,
                 "query": "SELECT camera_name AS gate_name, CASE WHEN status = 1 THEN 'open' WHEN status = 0 THEN 'close' ELSE'' END AS gate_status , CASE WHEN status = 1 OR status = 0 THEN 'on' ELSE'off'END AS comm_status FROM TB_CIRCUIT_BREAKER_CONFIG"
             })
         });
