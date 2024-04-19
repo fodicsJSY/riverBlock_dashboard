@@ -128,7 +128,6 @@
                         <div class="statsBtnBox"><button class="statsBtn" ><img src="/resources/img/icon_stats.png" class="statsIcon" alt="" disabled>&nbsp;통계</button></div>
                     </div>
                 </div>
-
                 
                 <div class="innerBox02">
                     <div class="chartBox">

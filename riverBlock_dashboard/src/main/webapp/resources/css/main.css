@@ -560,6 +560,12 @@ button{
 
 }
 
+.tableContainer>div{
+    max-height: 369px;
+    overflow-y: auto;
+}
+
+
 .gateTable{
     width: 100%;
     height: 100%;

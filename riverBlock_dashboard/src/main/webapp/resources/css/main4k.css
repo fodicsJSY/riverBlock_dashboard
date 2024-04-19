@@ -535,10 +535,19 @@
         width: 100%;
     }
 
+    
     .tableContainer{
         width: 100%;
 
     }
+
+
+    .tableContainer>div{
+        max-height: 496px;
+        overflow-y: auto;
+    }
+
+
 
     .gateTable{
         width: 100%;

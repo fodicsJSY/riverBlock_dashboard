@@ -543,6 +543,12 @@ button{
     overflow-y: auto; /* 수직 스크롤을 표시합니다. */
 }
 
+.tableContainer>div{
+    max-height: 369px;
+    overflow-y: auto;
+}
+
+
 .gateTable{
     width: 100%;
     height: 100%;
