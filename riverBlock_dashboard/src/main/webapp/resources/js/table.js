@@ -1,6 +1,7 @@
 let tableDataList; 
 
 function makeTable(sendTableQuery){
+    // console.log("sendTableQuery", sendTableQuery );
     tableDataList = sendTableQuery.result;
 
     // console.log("tableDataList", tableDataList );
@@ -39,9 +40,9 @@ function makeTable(sendTableQuery){
 
     // 데이터 삽입
     tableDataList.forEach(function (item) {    
-        console.log("item[0]", item[0]);
-        console.log("item[1]", item[1]);
-        console.log("item[2]", item[2]);
+        // console.log("item[0]", item[0]);
+        // console.log("item[1]", item[1]);
+        // // console.log("item[2]", item[2]);
 
 
             var tr = document.createElement("tr");
@@ -56,7 +57,7 @@ function makeTable(sendTableQuery){
             gateImg.className = "gateIcon";
 
             
-            // console.log("item.gateStatus : ", item.gateStatus );
+            // // console.log("item.gateStatus : ", item.gateStatus );
             
 
             if(item[1] == 'close'){
@@ -75,7 +76,7 @@ function makeTable(sendTableQuery){
             let signalImg =  document.createElement("img");
             signalImg.className = "signalIcon";
 
-            // console.log("item.commStatus : ", item.commStatus );
+            // // console.log("item.commStatus : ", item.commStatus );
             if(item[2] == 'on'){
                 signalImg.src = "/resources/img/connect-signalOK.png";
             }

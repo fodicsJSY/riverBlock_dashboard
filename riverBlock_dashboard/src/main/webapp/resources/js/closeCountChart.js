@@ -4,7 +4,7 @@ var closeCountChart;
 function closeDounutChart(data){
 
     closeGateList = data.result;
-    console.log("closeGateList", closeGateList );
+    // console.log("closeGateList", closeGateList );
 
     let closeTimeCnt0 = closeGateList[0][0];
     let closeTimeCnt1 = closeGateList[0][1];
@@ -12,9 +12,9 @@ function closeDounutChart(data){
     let closeTimeCnt3 = closeGateList[0][3];
     let closeTimeCnt4 = closeGateList[0][4];
     let closeTimeCnt5 = closeGateList[0][5];
-    // console.log("closeTimeCnt0", closeTimeCnt0 );
+    // // console.log("closeTimeCnt0", closeTimeCnt0 );
 
-    // console.log("시간별 폐문 차트");
+    // // console.log("시간별 폐문 차트");
 
     // 이전에 있던 차트 객체가 있으면 삭제
     if (closeCountChart || closeGateList == null) {

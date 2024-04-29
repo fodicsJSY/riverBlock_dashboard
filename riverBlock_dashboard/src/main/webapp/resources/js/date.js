@@ -39,35 +39,35 @@ document.addEventListener("DOMContentLoaded", ()=> {
 
 
     document.getElementById('leftBtn').addEventListener("click", ()=>{
-        // console.log("leftBtn클릭");
+        // // console.log("leftBtn클릭");
         beforeOneDay();
         sendToServer(savedIP, forDate);
     });
 
 
     document.getElementById('rightBtn').addEventListener("click", ()=>{
-        // console.log("rightBtn클릭");
+        // // console.log("rightBtn클릭");
         afterOneDay();
         sendToServer(savedIP, forDate);
     });
 
 
     document.getElementById('yesterdayBtn').addEventListener("click", ()=>{
-        // console.log("yesterdayBtn클릭");
+        // // console.log("yesterdayBtn클릭");
         yesterday();
         sendToServer(savedIP, forDate);
     });
 
 
     document.getElementById('todayBtn').addEventListener("click", ()=>{
-        // console.log("todayBtn클릭");
+        // // console.log("todayBtn클릭");
         today();
         sendToServer(savedIP, forDate);
     });
 
 
     document.getElementById('beforeWeekBtn').addEventListener("click", ()=>{
-        // console.log("beforeWeekBtn클릭");
+        // // console.log("beforeWeekBtn클릭");
         before1weekBtn();
         sendToServer(savedIP, forDate);
     });
@@ -82,7 +82,7 @@ function beforeOneDay(){
     var formattedDate = inputDate.toISOString().substring(0, 10);
     document.getElementById('inputDate').value = formattedDate;
     forDate = formattedDate; // forDate 업데이트
-    // console.log("하루 전 : ", forDate);
+    // // console.log("하루 전 : ", forDate);
 
 }
 
@@ -94,7 +94,7 @@ function afterOneDay(){
     var formattedDate = inputDate.toISOString().substring(0, 10);
     document.getElementById('inputDate').value = formattedDate;
     forDate = formattedDate; // forDate 초기화
-    // console.log("다음 날짜 : ", forDate);
+    // // console.log("다음 날짜 : ", forDate);
 }
 
 
@@ -104,9 +104,9 @@ function yesterday(){
     yesterday.setDate(yesterday.getDate() - 1); // 어제의 날짜로 설정
     var formattedDate = yesterday.toISOString().substring(0, 10);
     inputDate.value = formattedDate;
-    // console.log("formattedDate : ", formattedDate);
+    // // console.log("formattedDate : ", formattedDate);
     forDate = formattedDate; // forDate 초기화
-    // console.log("어제 날짜 : ", forDate);
+    // // console.log("어제 날짜 : ", forDate);
 }
 
 
@@ -115,9 +115,9 @@ function today(){
     var today = new Date();
     var formattedDate = today.toISOString().substring(0, 10);
     inputDate.value = formattedDate;
-    // console.log("formattedDate : ", formattedDate);
+    // // console.log("formattedDate : ", formattedDate);
     forDate = formattedDate; // forDate 초기화
-    // console.log("오늘날짜 : ", forDate);
+    // // console.log("오늘날짜 : ", forDate);
 }
 
 // 1주 전으로 초기화
@@ -126,15 +126,15 @@ function before1weekBtn(){
     beforeOneWeek.setDate(beforeOneWeek.getDate() - 7); 
     var formattedDate = beforeOneWeek.toISOString().substring(0, 10);
     document.getElementById('inputDate').value = formattedDate;
-    // console.log("formattedDate : ", formattedDate);
+    // // console.log("formattedDate : ", formattedDate);
     forDate = formattedDate; // forDate 초기화
-    // console.log("1주전 날짜 : ", forDate);
+    // // console.log("1주전 날짜 : ", forDate);
 }
 
 
 // input태그 날짜 직접 입력
 inputDate.addEventListener('keyup', function() {
-    // console.log("inputDate 변경됨 : ", this.value);
+    // // console.log("inputDate 변경됨 : ", this.value);
     sendToServer(savedIP, this.value);
 });
 
@@ -146,8 +146,8 @@ let data;
 async function sendToServer(savedIP, value) {
     // 형식을 YYYYMMDD로 변경
     let occuDate = formatToYYYYMMDD(value || forDate);
-    console.log('Sending occuDate to server:', occuDate); // 콘솔에 occuDate 값 로그 출력
-    console.log('sendToServer savedIP:', savedIP); // 콘솔에 savedIP 값 로그 출력
+    // console.log('Sending occuDate to server:', occuDate); // 콘솔에 occuDate 값 로그 출력
+    // console.log('sendToServer savedIP:', savedIP); // 콘솔에 savedIP 값 로그 출력
 
     
 
@@ -160,7 +160,7 @@ async function sendToServer(savedIP, value) {
         // })
         // .then(resp => resp.json()) // 요청에 대한 응답 객체(response)를 필요한 형태로 파싱
         // .then((result) => {
-        //         // console.log("result", result );
+        //         // // console.log("result", result );
             
         //         data = result;
             
@@ -174,7 +174,7 @@ async function sendToServer(savedIP, value) {
             
         //     }) // 첫 번째 then에서 파싱한 데이터를 이용한 동작 작성
         //     .catch( err => {
-        //             // console.log("err : ", err);
+        //             // // console.log("err : ", err);
         //         }); // 예외 발생 시 처리할 내용을 작성
                 
     //이전 DB연결 시 작성한 ajax문*******************************************************
@@ -188,7 +188,7 @@ async function sendToServer(savedIP, value) {
             await fetchData(savedIP, occuDate);
             // fetchData 함수에서 반환한 데이터를 이용하여 원하는 작업 수행
         } catch (error) {
-            console.error('Error occurred:', error);
+            // console.error('Error occurred:', error);
         }
     })();
 
@@ -198,16 +198,16 @@ async function sendToServer(savedIP, value) {
 
 
 async function fetchData(savedIP, occuDate) {
-    console.log("여기!");
+    // console.log("여기!");
 
     // var DBip = "172.16.0.93";
-    console.log('fetchData occuDate:', occuDate); // 콘솔에 occuDate 값 로그 출력
-    console.log('fetchData savedIP:', savedIP); // 콘솔에 savedIP 값 로그 출력
+    // console.log('fetchData occuDate:', occuDate); // 콘솔에 occuDate 값 로그 출력
+    // console.log('fetchData savedIP:', savedIP); // 콘솔에 savedIP 값 로그 출력
     
     
 
     try {
-        console.log("호출!");
+        // console.log("호출!");
 
 
 
@@ -230,8 +230,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const openDataList = await result1.json();
-        console.log("openDataList", openDataList);
-        console.log("result1", result1);
+        // console.log("openDataList", openDataList);
+        // console.log("result1", result1);
 
 
 
@@ -254,8 +254,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const openDataList01 = await result1_1.json();
-        console.log("openDataList01", openDataList01);
-        console.log("result1_1", result1_1);
+        // console.log("openDataList01", openDataList01);
+        // console.log("result1_1", result1_1);
 
 
         openDounutChart(openDataList01); 
@@ -280,8 +280,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const closeDataList = await result2.json();
-        console.log("closeDataList", closeDataList);
-        console.log("result2", result2);
+        // console.log("closeDataList", closeDataList);
+        // console.log("result2", result2);
 
 
         // Query 2 받기
@@ -302,8 +302,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const closeDataList01 = await result2_1.json();
-        console.log("closeDataList01", closeDataList01);
-        console.log("result2_1", result2_1);
+        // console.log("closeDataList01", closeDataList01);
+        // console.log("result2_1", result2_1);
 
 
         closeDounutChart(closeDataList01); 
@@ -327,8 +327,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const tableDataList = await result3.json();
-        console.log("tableDataList", tableDataList);
-        console.log("result3", result3);
+        // console.log("tableDataList", tableDataList);
+        // console.log("result3", result3);
 
 
 
@@ -349,8 +349,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const tableDataList01 = await result3_1.json();
-        console.log("tableDataList01", tableDataList01);
-        console.log("result3_1", result3_1);
+        // console.log("tableDataList01", tableDataList01);
+        // console.log("result3_1", result3_1);
 
         makeTable(tableDataList01); 
 
@@ -377,8 +377,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const liveDataList = await result5.json();
-        console.log("liveDataList", liveDataList);
-        console.log("result5", result5);
+        // console.log("liveDataList", liveDataList);
+        // console.log("result5", result5);
 
 
 
@@ -400,8 +400,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const liveDataList01 = await result5_1.json();
-        console.log("liveDataList01", liveDataList01);
-        // console.log("result5_1", result5_1);
+        // console.log("liveDataList01", liveDataList01);
+        // // console.log("result5_1", result5_1);
 
         liveInformation(liveDataList01); 
 
@@ -426,8 +426,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const cameraNameList = await result0.json();
-        console.log("cameraNameList", cameraNameList);
-        console.log("result0", result0);
+        // console.log("cameraNameList", cameraNameList);
+        // console.log("result0", result0);
         
 
 
@@ -451,26 +451,26 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const cameraNameList01 = await result0_1.json();
-        console.log("cameraNameList01", cameraNameList01);
-        console.log("result0_1", result0_1);
+        // console.log("cameraNameList01", cameraNameList01);
+        // console.log("result0_1", result0_1);
 
 
 
 
         var cameraList = [];
 
-        console.log("cameraNameList01.result.length", cameraNameList01.result.length);
+        // console.log("cameraNameList01.result.length", cameraNameList01.result.length);
 
         for(let i = 0; i < cameraNameList01.result.length; i++){
-            console.log("cameraNameList01.result[i]", cameraNameList01.result[i]);
-            cameraList.push(cameraNameList01.result[i][1]);
-            console.log("cameraList1", cameraList);
+            // console.log("cameraNameList01.result[i]", cameraNameList01.result[i]);
+            cameraList.push(cameraNameList01.result[i][0]);
+            // console.log("cameraList1", cameraList);
         }
-        console.log("cameraList2", cameraList);
+        // console.log("cameraList2", cameraList);
         
         // 중복을 제거한 후에 중복 제거된 값들의 배열을 만듭니다.
         const cameras = [...new Set(cameraList)];
-        console.log("cameras", cameras);
+        // console.log("cameras", cameras);
 
 
 
@@ -494,8 +494,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const lineDataList = await result4.json();
-        console.log("lineDataList", lineDataList);
-        console.log("result4", result4);
+        // console.log("lineDataList", lineDataList);
+        // console.log("result4", result4);
 
 
 
@@ -518,12 +518,12 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const lineDataList01 = await result4_1.json();
-        console.log("lineDataList01", lineDataList01);
-        console.log("result4_1", result4_1);
+        // console.log("lineDataList01", lineDataList01);
+        // console.log("result4_1", result4_1);
 
 
 
-        // lineChart(cameras); 
+        lineChart(cameras, lineDataList01); 
 
 
 
@@ -538,7 +538,7 @@ async function fetchData(savedIP, occuDate) {
 
     //         // 각각의 응답 데이터를 이용하여 원하는 작업 수행
     //     } catch (error) {
-    //         console.error('Error occurred:', error);
+    //         // console.error('Error occurred:', error);
     //     }
     // })();
 
@@ -547,7 +547,7 @@ async function fetchData(savedIP, occuDate) {
 
 
     } catch (error) {
-        console.error('Error fetching data:', error);
+        // console.error('Error fetching data:', error);
         throw error;
     }
 }
@@ -611,9 +611,9 @@ async function fetchData(savedIP, occuDate) {
 //             })
 //         }).then(resp => resp.json());
 
-//         console.log("cameraCountResp", cameraCountResp);
-//         // console.log("cameraIpListResp", cameraIpListResp);
-//         // console.log("gateLiveListResp", gateLiveListResp);
+//         // console.log("cameraCountResp", cameraCountResp);
+//         // // console.log("cameraIpListResp", cameraIpListResp);
+//         // // console.log("gateLiveListResp", gateLiveListResp);
 
 //         // fetchData 함수를 호출하고 결과를 처리하는 예제
 //         (async () => {
@@ -623,14 +623,14 @@ async function fetchData(savedIP, occuDate) {
 
 //                 // 각각의 응답 데이터를 이용하여 원하는 작업 수행
 //             } catch (error) {
-//                 console.error('Error occurred:', error);
+//                 // console.error('Error occurred:', error);
 //             }
 //         })();
 
 //         liveInformation(cameraCountResp, cameraIpListResp, gateLiveListResp);
 
 //     } catch (error) {
-//         console.error('Error fetching data:', error);
+//         // console.error('Error fetching data:', error);
 //         throw error;
 //     }
 
@@ -653,5 +653,6 @@ function formatToYYYYMMDD(dateString) {
     var year = date.getFullYear();
     var month = (date.getMonth() + 1).toString().padStart(2, '0');
     var day = date.getDate().toString().padStart(2, '0');
-    return year + month + day;
+    // return year + month + day;
+    return year+ "-" + month + "-" + day;
 }

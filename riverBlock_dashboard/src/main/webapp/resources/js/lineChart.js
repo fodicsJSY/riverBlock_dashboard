@@ -1,25 +1,81 @@
 let cameraNameList;
 let lineDataList; 
+let dateDataChart;
 
-function lineChart(cameras) {
-    console.log("linechart cameras : ", cameras);
 
-    // lineDataList = lineDataList01.result;
 
+function lineChart(cameras, lineDataList01) {
+    // console.log("linechart cameras : ", cameras);
+    // console.log("linechart lineDataList01 : ", lineDataList01);
+    
+    lineDataList = lineDataList01.result;
+    
+    let chartCameraList= {};
 
     // console.log("lineDataList", lineDataList);
-    // console.log("일별 구동 차트");
+    
+    
+    // var chartCameraList =[];
+    // var chartDataList =[];
+    // var chartTimeList =[];
+    
+    // // console.log("안나와");
+    
+    // // console.log("lineDataList.length", lineDataList.length);
+    // for(let j = 0; j < lineDataList.length; j++){
+    //     // console.log("왜 안나와");
+    //     // console.log("j", j);
+    //     // console.log("lineDataList[j]", lineDataList[j]);
+    //     chartCameraList.push(lineDataList[j][0]);
+    //     chartDataList.push(lineDataList[j][1]);
+    //     chartTimeList.push(lineDataList[j][2]);
+    // }
+    
+    // // console.log("chartCameraList", chartCameraList);
+    // // console.log("chartDataList", chartDataList);
+    // // console.log("chartTimeList", chartTimeList);
 
+    // // console.log("일별 구동 차트");
+    
     // 이전에 있던 차트 객체가 있으면 삭제
-    if (dateDataChart || daliyCountList == null) {
+    if (dateDataChart) {
         dateDataChart.dispose();
     }
-
+    
+    
+    
+    
+    // 시간대별로 구동 횟수를 누적할 객체
+    const cameraData = {};
+    
+    // 데이터 처리
+    lineDataList.forEach(item => {
+        const cameraName = item[0]; // 카메라명
+        const hour = parseInt(item[1]); // 시간
+        const count = parseInt(item[2]); // 구동횟수
+        
+        // 해당 카메라명이 없으면 새로운 객체로 초기화
+        if (!cameraData[cameraName]) {
+            cameraData[cameraName] = Array(24).fill(0); // 24시간을 0으로 초기화
+        }
+        
+        // 시간대별 구동횟수 누적
+        cameraData[cameraName][hour] += count;
+    });
+    
+    // 최종 시리즈 데이터 생성
+    const seriesData = Object.keys(cameraData).map(cameraName => ({
+        name: cameraName,
+        type: 'line',
+        data: cameraData[cameraName]
+    }));
+    
+    // console.log(seriesData);
+    
+    
+    
     dateDataChart = echarts.init(document.getElementById('dateData'));
 
-    // 카메라 이름 목록 추출
-    // const cameras = [...new Set(cameraNameList.map(entry => entry.cameraName))];
-    // console.log("cameras : ", cameras);
 
     const colors = ['#00A9FF', '#FFB840', '#FF5A46', '#00BD9F', '#785FFF', '#F28B8C', '#989486', '#516F7D', '#28E6EB', '#28695F'];
     option = {
@@ -34,7 +90,7 @@ function lineChart(cameras) {
             textStyle: {
                 color: '#FFFFF' 
             },
-            data: cameras
+            data: chartCameraList[cameras]
         },
         grid: {
             left: '3%',
@@ -45,7 +101,7 @@ function lineChart(cameras) {
         xAxis: {
             type: 'category', // x축 타입을 category로 변경
             boundaryGap: false,
-            data: Array.from({ length: 31 }, (_, i) => i + 1), // 1부터 31까지의 배열 생성
+            data: Array.from({ length: 24 }, (_, i) => i + 1), // 1부터 31까지의 배열 생성
             splitLine: {    // x축의 분할선 설정
                 show: true, // 분할선 표시 여부
                 axisLine: {    // x축에 대한 스타일 설정
@@ -70,22 +126,7 @@ function lineChart(cameras) {
                 },
             }
         },
-        series: cameras.map(camera => {
-            const cameraData = Array.from({ length: 31 }, (_, i) => {
-                const currentDate = i + 1;
-                const matchingEntry = daliyCountList.find(entry => {
-                    const entryDate = new Date(entry.logDate).getDate();
-                    return entryDate === currentDate && entry.cameraName === camera;
-                });
-                return matchingEntry ? parseInt(matchingEntry.cnt) : 0;
-            });
-            // console.log("cameraData : ", cameraData);
-            return {
-                name: camera,
-                type: 'line',
-                data: cameraData
-            };
-        })
+        series: seriesData
     };
 
     dateDataChart.setOption(option);

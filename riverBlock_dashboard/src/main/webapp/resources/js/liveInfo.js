@@ -16,11 +16,11 @@ function liveInformation(liveDataList01){
 // function liveInformation(cameraCountResp, cameraIpListResp){
 
     let gateLive = liveDataList01.result[0];
-    console.log("gateLive", gateLive);
+    // console.log("gateLive", gateLive);
     
     
     let gateTotal = parseInt(gateLive[0]) + parseInt(gateLive[1]) + parseInt(gateLive[2]);
-    console.log("gateTotal", gateTotal);
+    // console.log("gateTotal", gateTotal);
 
     gateTotalCount.innerHTML = `${gateTotal} 개소`;
     gateOpenCount.innerHTML = `${gateLive[0]} 개소`;
@@ -45,9 +45,9 @@ function liveInformation(liveDataList01){
     //         } else {
     //             noCount++;
     //         }
-    //         // console.log("okCount", okCount);
-    //         // console.log("noCount", noCount);
-    //         // console.log("okCount + noCount", okCount + noCount);
+    //         // // console.log("okCount", okCount);
+    //         // // console.log("noCount", noCount);
+    //         // // console.log("okCount + noCount", okCount + noCount);
 
     //         // 모든 IP 주소 확인 완료 후 카운트 표시
     //         if (okCount + noCount == cameraCount) {

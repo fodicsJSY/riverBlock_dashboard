@@ -4,7 +4,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
+
+    <%-- <meta charset="UTF-8"> --%>
+    <meta content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mainPage</title>
 
@@ -74,7 +76,7 @@
                     </div>
                 </div>
                 <div class="innerBox04">
-                    <div class="leftTitleBox" >
+                    <%-- <div class="leftTitleBox" >
                         <div class="leftImgContainer"><img src="/resources/img/iconList_cctv.png" class="cctvIcon" alt=""></div>
                         <div class="leftTitle">카메라정보</div>
                     </div>
@@ -93,13 +95,7 @@
                             </div>
                             <div class="dataCount"><span id="openSignalCount"><span></div>
                         </div>
-                        <%-- <div class="leftDataBox dataSection">
-                            <div class="dataStatsBox">
-                                <div class="dataStatsImgBox"><img src="/resources/img/connect-signalNO.png" class="dataStatsImg" alt=""></div>
-                                <div class="dataStats">끊어짐</div>
-                            </div>
-                            <div class="dataCount"><span id="closeSignalCount">99<span>CH</div>
-                        </div> --%>
+                        
                         <div class="leftDataBox dataSection">
                             <div class="dataStatsBox">
                                 <div class="dataStatsImgBox"><img src="/resources/img/connect-signalBAD.png" class="dataStatsImg" alt=""></div>
@@ -107,7 +103,7 @@
                             </div>
                             <div class="dataCount"><span id="noSignalCount"><span></div>
                         </div>
-                    </div>
+                    </div> --%>
                 </div>
             </div>
         </div>
@@ -200,6 +196,6 @@
     <script src="/resources/js/table.js"></script>
     <script src="/resources/js/liveInfo.js"></script>
     <script src="/resources/js/dbSetting.js"></script>
-    <%-- <script src="/resources/js/refresh.js"></script> --%>
+    <script src="/resources/js/refresh.js"></script>
 </body>
 </html>
