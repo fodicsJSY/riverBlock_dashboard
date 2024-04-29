@@ -1,10 +1,13 @@
-let daliyCountList;
-let dateDataChart; 
+let cameraNameList;
+let lineDataList; 
 
-function lineChart(data) {
-    daliyCountList = data.daliyCountList;
+function lineChart(cameras) {
+    console.log("linechart cameras : ", cameras);
 
-    // console.log("daliyCountList", daliyCountList);
+    // lineDataList = lineDataList01.result;
+
+
+    // console.log("lineDataList", lineDataList);
     // console.log("일별 구동 차트");
 
     // 이전에 있던 차트 객체가 있으면 삭제
@@ -15,7 +18,7 @@ function lineChart(data) {
     dateDataChart = echarts.init(document.getElementById('dateData'));
 
     // 카메라 이름 목록 추출
-    const cameras = [...new Set(daliyCountList.map(entry => entry.cameraName))];
+    // const cameras = [...new Set(cameraNameList.map(entry => entry.cameraName))];
     // console.log("cameras : ", cameras);
 
     const colors = ['#00A9FF', '#FFB840', '#FF5A46', '#00BD9F', '#785FFF', '#F28B8C', '#989486', '#516F7D', '#28E6EB', '#28695F'];

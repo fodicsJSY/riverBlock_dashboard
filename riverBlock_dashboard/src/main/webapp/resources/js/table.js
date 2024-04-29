@@ -67,7 +67,7 @@ function makeTable(sendTableQuery){
             }
             div1.appendChild(gateImg);
             
-            if(item[1] == ''){
+            if(item[1] == 'disconnected'){
                 div1.innerHTML = "-";
             }
 

@@ -16,7 +16,7 @@ async function getDBIP() {
         title: "IP를 입력해주세요.",
         input: "text",
         inputLabel: "IP를 입력해주세요.",
-        inputValue: savedIP, // 이전에 저장된 IP를 기본값으로 설정
+        // inputValue: savedIP, // 이전에 저장된 IP를 기본값으로 설정
         showCancelButton: true,
         inputValidator: (value) => {
             // console.log("value : ", value);

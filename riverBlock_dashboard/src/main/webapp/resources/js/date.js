@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
 
     // inputDate 엘리먼트 초기화
     var inputDate = document.getElementById('inputDate');
-    savedIP ="172.16.0.93"
+    savedIP = getIPFromLocalStorage();
     // forDate 변수 초기화
     forDate = new Date(inputDate.value);
 
@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", ()=> {
 
 
 /* 오늘 날짜로 초기화 끝*/
-
     
     document.getElementById('calenderButton').addEventListener('change', function() {
         inputDate.value = this.value;
@@ -186,281 +185,462 @@ async function sendToServer(savedIP, value) {
     // // fetchData2 함수를 호출하고 결과를 처리하는 예제
     (async () => {
         try {
-            await fetchData2(savedIP, occuDate);
+            await fetchData(savedIP, occuDate);
             // fetchData 함수에서 반환한 데이터를 이용하여 원하는 작업 수행
         } catch (error) {
             console.error('Error occurred:', error);
         }
     })();
 
-    
-
-
-
-
-
-
-
-
-
-    // //개문횟수
-    // fetch("/openGateList", { 
-    //     method : "POST", 
-    //     headers: {"Content-Type": "application/json;"}, 
-    //     body : JSON.stringify( {
-    //                             "serverip" : "172.16.0.93",
-    //                             "query": "DECLARE @fr_time_0 NVARCHAR(8) = '00:00:00', @to_time_0 NVARCHAR(8) = '10:59:99', @fr_time_1 NVARCHAR(8) = '11:00:00' , @to_time_1 NVARCHAR(8) = '12:59:99', @fr_time_2 NVARCHAR(8) = '13:00:00', @to_time_2 NVARCHAR(8) = '16:59:99', @fr_time_3	NVARCHAR(8) = '17:00:00', @to_time_3 NVARCHAR(8) = '19:59:99', @fr_time_4 NVARCHAR(8) = '20:00:00', @to_time_4 NVARCHAR(8) = '21:59:99', @fr_time_5	NVARCHAR(8) = '21:00:00', @to_time_5 NVARCHAR(8) = '23:59:99' SELECT SUM(DATA.time_0) AS open_time_cnt_0, SUM(DATA.time_1) AS open_time_cnt_1, SUM(DATA.time_2) AS open_time_cnt_2, SUM(DATA.time_3) AS open_time_cnt_3, SUM(DATA.time_4) AS open_time_cnt_4, SUM(DATA.time_5) AS open_time_cnt_5 FROM (SELECT CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_0 AND @to_time_0 THEN 1 ELSE 0 END AS time_0, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_1 AND @to_time_1 THEN 1 ELSE 0 END AS time_1, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_2 AND @to_time_2 THEN 1 ELSE 0 END AS time_2, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_3 AND @to_time_3 THEN 1 ELSE 0 END AS time_3, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_4 AND @to_time_4 THEN 1 ELSE 0 END AS time_4, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_5 AND @to_time_5 THEN 1 ELSE 0 END AS time_5FROM dbo.TB_CIRCUIT_BREAKER_LOG WHERE log_date = "+occuDate+" AND gate_cmd = 1 ) DATA"
-    //                             } ) 
-    // })
-    // .then(resp => resp.json()) // 요청에 대한 응답 객체(response)를 필요한 형태로 파싱
-    // .then((result) => {
-    //     console.log("openGateList", result );
-    
-    //     data = result;
-    
-    
-    
-    // }) // 첫 번째 then에서 파싱한 데이터를 이용한 동작 작성
-    // .catch( err => {
-    //     // console.log("err : ", err);
-    // }); // 예외 발생 시 처리할 내용을 작성
-
-
-
-    // //폐문횟수
-    // fetch("/closeGateList", { 
-    //     method : "POST", 
-    //     headers: {"Content-Type": "application/json;"}, 
-    //     body : JSON.stringify( {
-    //                             "serverip" : "172.16.0.93",
-    //                             "query": "DECLARE @fr_time_0 NVARCHAR(8) = '00:00:00', @to_time_0 NVARCHAR(8) = '10:59:99', @fr_time_1 NVARCHAR(8) = '11:00:00' , @to_time_1 NVARCHAR(8) = '12:59:99' , @fr_time_2 NVARCHAR(8) = '13:00:00' , @to_time_2 NVARCHAR(8) = '16:59:99' , @fr_time_3 NVARCHAR(8) = '17:00:00' , @to_time_3 NVARCHAR(8) = '19:59:99' , @fr_time_4 NVARCHAR(8) = '20:00:00' , @to_time_4 NVARCHAR(8) = '21:59:99' , @fr_time_5 NVARCHAR(8) = '21:00:00', @to_time_5 NVARCHAR(8) = '23:59:99' SELECT SUM(DATA.time_0) AS close_time_cnt_0, SUM(DATA.time_1) AS close_time_cnt_1, SUM(DATA.time_2) AS close_time_cnt_2, SUM(DATA.time_3) AS close_time_cnt_3, SUM(DATA.time_4) AS close_time_cnt_4 , SUM(DATA.time_5) AS close_time_cnt_5 FROM(SELECTCASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_0 AND @to_time_0 THEN 1ELSE 0 END AS time_0, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_1 AND @to_time_1 THEN 1 ELSE 0 END AS time_1, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_2 AND @to_time_2 THEN 1 ELSE 0 END AS time_2, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_3 AND @to_time_3 THEN 1 ELSE 0 END AS time_3, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_4 AND @to_time_4 THEN 1 ELSE 0 END AS time_4, CASE WHEN CONVERT(NVARCHAR, log_time, 8) BETWEEN @fr_time_5 AND @to_time_5 THEN 1 ELSE 0 END AS time_5 FROM dbo.TB_CIRCUIT_BREAKER_LOG WHERE log_date = "+occuDate+" AND gate_cmd = 0) DATA"
-    //                             } ) 
-    // })
-    // .then(resp => resp.json()) // 요청에 대한 응답 객체(response)를 필요한 형태로 파싱
-    // .then((result) => {
-    //     console.log("closeGateList", result );
-    
-    //     data = result;
-    
-    
-    
-    // }) // 첫 번째 then에서 파싱한 데이터를 이용한 동작 작성
-    // .catch( err => {
-    //     // console.log("err : ", err);
-    // }); // 예외 발생 시 처리할 내용을 작성
-
-
-
-    // //라인차트
-    // fetch("/sendLineQuery", { 
-    //     method : "POST", 
-    //     headers: {"Content-Type": "application/json;"}, 
-    //     body : JSON.stringify( {
-    //                             "serverip" : "172.16.0.93",
-    //                             "query": "DECLARE @tb_temp_camera TABLE (camera_name NVARCHAR(50), cnt INT)INSERT INTO @tb_temp_camera SELECT TOP 10 camera_name , COUNT(camera_name) AS cnt FROM TB_CIRCUIT_BREAKER_LOG WHERE CONVERT(VARCHAR(7), log_date, 120) = LEFT("+occuDate+"}, 7) GROUP BY camera_name ORDER BY cnt DESC SELECT GLOG.log_date, GLOG.camera_name, COUNT(GLOG.log_date) AS cnt FROM TB_CIRCUIT_BREAKER_LOG GLOG WHERE CONVERT(VARCHAR(7), GLOG.log_date, 120) = LEFT("+occuDate+"}, 7) AND GLOG.camera_name IN (SELECT camera_name FROM @tb_temp_camera) GROUP BY GLOG.log_date, GLOG.camera_name ORDER BY GLOG.log_date, GLOG.camera_name"
-    //                             } ) 
-    // })
-    // .then(resp => resp.json()) // 요청에 대한 응답 객체(response)를 필요한 형태로 파싱
-    // .then((result) => {
-    //     console.log("lineResult", result );
-    
-    //     data = result;
-    
-    //     // 차트호출
-    //     lineChart(data);
-    
-    
-    // }) // 첫 번째 then에서 파싱한 데이터를 이용한 동작 작성
-    // .catch( err => {
-    //     // console.log("err : ", err);
-    // }); // 예외 발생 시 처리할 내용을 작성
-
-
-
-
-    // 테이블
-    // fetch("/sendTableQuery", { 
-    //     method : "POST", 
-    //     headers: {"Content-Type": "application/json;"}, 
-    //     body : JSON.stringify( {
-    //                             "serverip" : "172.16.0.93",
-    //                             "query": "SELECT camera_name AS gate_name, CASE WHEN status = 1 THEN 'open' WHEN status = 0 THEN 'close' ELSE'' END AS gate_status , CASE WHEN status = 1 OR status = 0 THEN 'on' ELSE'off'END AS comm_status FROM TB_CIRCUIT_BREAKER_CONFIG"
-    //                             } ) 
-    // })
-    // .then(resp => resp.json()) // 요청에 대한 응답 객체(response)를 필요한 형태로 파싱
-    // .then((result) => {
-    //     console.log("tableResult", result );
-    
-    //     tableResult = result;
-    
-    //     // 함수호출
-    //     // makeTable(tableResult);
-    
-    
-    // }) // 첫 번째 then에서 파싱한 데이터를 이용한 동작 작성
-    // .catch( err => {
-    //     console.log("err : ", err);
-    // }); // 예외 발생 시 처리할 내용을 작성
-
-
-
-
-
-
-
-
-    // //카메라 개수 (왼쪽)
-    // fetch("/cameraCount", { 
-    //     method : "POST", 
-    //     headers: {"Content-Type": "application/json;"}, 
-    //     body : JSON.stringify( {
-    //                             "serverip" : "172.16.0.93",
-    //                             "query": "SELECT COUNT(ip_addr) AS camera_total_cnt FROM TB_CAMERA"
-    //                             } ) 
-    // })
-    // .then(resp => resp.json()) // 요청에 대한 응답 객체(response)를 필요한 형태로 파싱
-    // .then((result) => {
-    //     console.log("cameraCount", result );
-    
-    //     cameraCount = result;
-    
-    //     // 함수호출
-    //     liveInfomation(cameraCount);
-    
-    
-    // }) // 첫 번째 then에서 파싱한 데이터를 이용한 동작 작성
-    // .catch( err => {
-    //     // console.log("err : ", err);
-    // }); // 예외 발생 시 처리할 내용을 작성
-
-
-
-
-    // // 카메라 ip(왼쪽)
-    // fetch("/cameraIpList", { 
-    //     method : "POST", 
-    //     headers: {"Content-Type": "application/json;"}, 
-    //     body : JSON.stringify( {
-    //                             "serverip" : "172.16.0.93",
-    //                             "query": "SELECT ip_addr FROM TB_CAMERA"
-    //                             } ) 
-    // })
-    // .then(resp => resp.json()) // 요청에 대한 응답 객체(response)를 필요한 형태로 파싱
-    // .then((result) => {
-    //     console.log("cameraIpList", result );
-    
-    //     cameraIpList = result;
-    
-    //     // 함수호출
-    //     liveInfomation(cameraIpList);
-    
-    
-    // }) // 첫 번째 then에서 파싱한 데이터를 이용한 동작 작성
-    // .catch( err => {
-    //     // console.log("err : ", err);
-    // }); // 예외 발생 시 처리할 내용을 작성
-
-
-
-
-
-
-
-    // //게이트 현황(왼쪽)
-    // fetch("/gateLiveList", { 
-    //     method : "POST", 
-    //     headers: {"Content-Type": "application/json;"}, 
-    //     body : JSON.stringify( {
-    //                             "serverip" : "172.16.0.93",
-    //                             "query": "SELECT SUM(DATA.gate_total) AS gate_total_cnt, SUM(DATA.gate_open) AS gate_open_cnt , SUM(DATA.gate_close) AS gate_close_cnt , SUM(DATA.gate_disable) AS gate_disable_cnt FROM ( SELECT 1 AS gate_total , CASE WHEN status = 1 THEN 1 ELSE 0 END AS gate_open , CASE WHEN status = 0 THEN 1 ELSE 0 END AS gate_close , CASE WHEN status = 0 THEN 0 WHEN  status = 1 THEN 0 ELSE 1 END AS gate_disable FROM TB_CIRCUIT_BREAKER_CONFIG ) DATA"
-    //                             } ) 
-    // })
-    // .then(resp => resp.json()) // 요청에 대한 응답 객체(response)를 필요한 형태로 파싱
-    // .then((result) => {
-    //     console.log("gateLiveList", result );
-    
-    //     gateLiveList = result;
-    
-    //     // 함수호출
-    //     liveInfomation(gateLiveList);
-    
-    
-    // }) // 첫 번째 then에서 파싱한 데이터를 이용한 동작 작성
-    // .catch( err => {
-    //     // console.log("err : ", err);
-    // }); // 예외 발생 시 처리할 내용을 작성
-
-
-
-
-
-
-
-
-    /************************ 외부 DB연결 select**************************/
-    
-    // select
-    // let totalUrl = "http://172.16.103.34:8988/fnvr/request/query/select"
-    
-    
-    // fetch("/getDataFromAPI", { 
-    //     method : "POST", 
-    //     headers: {"Content-Type": "application/json;"}, 
-    //     credentials: "include",
-    //     body : JSON.stringify( {
-    //                             "serverip" : "172.16.0.93",
-    //                             "query": "SELECT SRV.site_code, CAM.camera_code, CAM.camera_name, CASE WHEN GIS_CAM.GIS_COORDINATE_X > 0 AND GIS_CAM.GIS_COORDINATE_Y > 0 THEN 1 ELSE 0 END AS gis_alloc, GIS_CAM.GIS_COORDINATE_X, GIS_CAM.GIS_COORDINATE_Y FROM TB_CAMERA CAM LEFT OUTER JOIN TB_SERVER_RECORD SRV ON type = 34 LEFT OUTER JOIN TB_GATE_CONTROL_GIS_CAMERA_INFO GIS_CAM ON SRV.site_code = GIS_CAM.SITE_CODE AND CAM.camera_code = GIS_CAM.CAMERA_CODE"
-    //                             } ) 
-    // })
-    // .then(resp => resp.json()) // 요청에 대한 응답 객체(response)를 필요한 형태로 파싱
-    // .then((result) => {
-    //     console.log("result", result );
-
-    //     // data = result;
-    //     // console.log("data : ", data);
-        
-        
-    // }) // 첫 번째 then에서 파싱한 데이터를 이용한 동작 작성
-    // .catch( err => {
-    //     // console.log("err : ", err);
-    // }); // 예외 발생 시 처리할 내용을 작성
-
-    /************************ 외부 DB연결 select**************************/
-
-
-    /************************ 외부 DB연결 execute**************************/
-
-    
-    // insert, update
-    // let totalUrl = "http://127.0.0.1:8988/fnvr/request/query/execute"
-    
-    // fetch("/getDataFromAPI", { 
-    //     method : "POST", 
-    //     headers: {"Content-Type": "application/json;"}, 
-    //     credentials: "include",
-    //     body : JSON.stringify( {
-    //                             "serverip" : "172.16.0.93",
-    //                             "query": "UPDATE TB_GATE_CONTROL_GIS_FVRT_INFO SET HOME_FLAG = CASE WHEN FVRT_CODE = 'FVRT_CODE' THEN 1 ELSE 0 END WHERE 1 = 1"
-    //                             } ) 
-    // })
-    // .then(resp => resp.json()) // 요청에 대한 응답 객체(response)를 필요한 형태로 파싱
-    // .then((result) => {
-    //     console.log("result", result );
-
-    //     // data = result;
-    //     // console.log("data : ", data);
-        
-        
-    // }) // 첫 번째 then에서 파싱한 데이터를 이용한 동작 작성
-    // .catch( err => {
-    //     // console.log("err : ", err);
-    // }); // 예외 발생 시 처리할 내용을 작성
-
-    /************************ 외부 DB연결 execute**************************/
-
-
-
 }
+
+
+
+
+async function fetchData(savedIP, occuDate) {
+    console.log("여기!");
+
+    // var DBip = "172.16.0.93";
+    console.log('fetchData occuDate:', occuDate); // 콘솔에 occuDate 값 로그 출력
+    console.log('fetchData savedIP:', savedIP); // 콘솔에 savedIP 값 로그 출력
+    
+    
+
+    try {
+        console.log("호출!");
+
+
+
+        // Query 1 호출
+        const result1 = await fetch("/openDataList", {
+            method: "POST",
+            headers: { "Content-Type": "application/json;" },
+            body: JSON.stringify({
+                "occuDate": occuDate,
+                "serverip": savedIP,
+                "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 1, '"+ occuDate +"', '"+ occuDate +"', ''",
+                // "query": "SELECT * FROM TB_TEMP_RESULT",
+                "id":"",
+                "pw":""
+            })
+        });
+
+        if (!result1.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const openDataList = await result1.json();
+        console.log("openDataList", openDataList);
+        console.log("result1", result1);
+
+
+
+        // Query 1 받기
+        const result1_1 = await fetch("/openDataList01", {
+            method: "POST",
+            headers: { "Content-Type": "application/json;" },
+            body: JSON.stringify({
+                "occuDate": occuDate,
+                "serverip": savedIP,
+                // "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 1, '"+ occuDate +"', '"+ occuDate +"', ''",
+                "query": "SELECT * FROM TB_TEMP_RESULT",
+                "id":"",
+                "pw":""
+            })
+        });
+
+        if (!result1.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const openDataList01 = await result1_1.json();
+        console.log("openDataList01", openDataList01);
+        console.log("result1_1", result1_1);
+
+
+        openDounutChart(openDataList01); 
+        
+
+        // Query 2 호출
+        const result2 = await fetch("/closeDataList", {
+            method: "POST",
+            headers: { "Content-Type": "application/json;" },
+            body: JSON.stringify({
+                "occuDate": occuDate,
+                "serverip": savedIP,
+                "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 2, '"+ occuDate +"', '"+ occuDate +"', ''",
+                // "query": "SELECT * FROM TB_TEMP_RESULT",
+                "id":"",
+                "pw":""
+            })
+        });
+
+        if (!result2.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const closeDataList = await result2.json();
+        console.log("closeDataList", closeDataList);
+        console.log("result2", result2);
+
+
+        // Query 2 받기
+        const result2_1 = await fetch("/closeDataList01", {
+            method: "POST",
+            headers: { "Content-Type": "application/json;" },
+            body: JSON.stringify({
+                "occuDate": occuDate,
+                "serverip": savedIP,
+                "query": "SELECT * FROM TB_TEMP_RESULT",
+                "id":"",
+                "pw":""
+            })
+        });
+
+        if (!result2_1.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const closeDataList01 = await result2_1.json();
+        console.log("closeDataList01", closeDataList01);
+        console.log("result2_1", result2_1);
+
+
+        closeDounutChart(closeDataList01); 
+
+
+
+        // Query 3 호출
+        const result3 = await fetch("/tableDataList", {
+            method: "POST",
+            headers: { "Content-Type": "application/json;" },
+            body: JSON.stringify({
+                "serverip": savedIP,
+                "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 3, '', '', ''",
+                "id":"",
+                "pw":""
+            })
+        });
+
+        if (!result3.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const tableDataList = await result3.json();
+        console.log("tableDataList", tableDataList);
+        console.log("result3", result3);
+
+
+
+        // Query 3 받기
+        const result3_1 = await fetch("/tableDataList01", {
+            method: "POST",
+            headers: { "Content-Type": "application/json;" },
+            body: JSON.stringify({
+                "serverip": savedIP,
+                "query": "SELECT * FROM TB_TEMP_RESULT",
+                "id":"",
+                "pw":""
+            })
+        });
+
+        if (!result3_1.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const tableDataList01 = await result3_1.json();
+        console.log("tableDataList01", tableDataList01);
+        console.log("result3_1", result3_1);
+
+        makeTable(tableDataList01); 
+
+
+
+
+
+
+        // Query 5 호출
+        const result5 = await fetch("/liveDataList", {
+            method: "POST",
+            headers: { "Content-Type": "application/json;" },
+            body: JSON.stringify({
+                "serverip": savedIP,
+                "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 5, '', '', ''",
+                // "query": "SELECT * FROM TB_TEMP_RESULT",
+                "id":"",
+                "pw":""
+            })
+        });
+
+        if (!result5.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const liveDataList = await result5.json();
+        console.log("liveDataList", liveDataList);
+        console.log("result5", result5);
+
+
+
+
+        // Query 5 받기
+        const result5_1 = await fetch("/liveDataList01", {
+            method: "POST",
+            headers: { "Content-Type": "application/json;" },
+            body: JSON.stringify({
+                "serverip": savedIP,
+                "query": "SELECT * FROM TB_TEMP_RESULT",
+                "id":"",
+                "pw":""
+            })
+        });
+
+        if (!result5.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const liveDataList01 = await result5_1.json();
+        console.log("liveDataList01", liveDataList01);
+        // console.log("result5_1", result5_1);
+
+        liveInformation(liveDataList01); 
+
+
+
+
+
+        // Query 0 호출
+        const result0 = await fetch("/cameraNameList", {
+            method: "POST",
+            headers: { "Content-Type": "application/json;" },
+            body: JSON.stringify({
+                "serverip": savedIP,
+                "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 0, '', '', ''",
+                "id":"",
+                "pw":""
+            })
+        });
+
+        if (!result0.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const cameraNameList = await result0.json();
+        console.log("cameraNameList", cameraNameList);
+        console.log("result0", result0);
+        
+
+
+        
+        
+        
+        // Query 0 받기
+        const result0_1 = await fetch("/cameraNameList01", {
+            method: "POST",
+            headers: { "Content-Type": "application/json;" },
+            body: JSON.stringify({
+                "serverip": savedIP,
+                "query": "SELECT * FROM TB_TEMP_RESULT",
+                "id":"",
+                "pw":""
+            })
+        });
+
+        if (!result0_1.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const cameraNameList01 = await result0_1.json();
+        console.log("cameraNameList01", cameraNameList01);
+        console.log("result0_1", result0_1);
+
+
+
+
+        var cameraList = [];
+
+        console.log("cameraNameList01.result.length", cameraNameList01.result.length);
+
+        for(let i = 0; i < cameraNameList01.result.length; i++){
+            console.log("cameraNameList01.result[i]", cameraNameList01.result[i]);
+            cameraList.push(cameraNameList01.result[i][1]);
+            console.log("cameraList1", cameraList);
+        }
+        console.log("cameraList2", cameraList);
+        
+        // 중복을 제거한 후에 중복 제거된 값들의 배열을 만듭니다.
+        const cameras = [...new Set(cameraList)];
+        console.log("cameras", cameras);
+
+
+
+
+
+        // Query 4 호출
+        const result4 = await fetch("/lineDataList", {
+            method: "POST",
+            headers: { "Content-Type": "application/json;" },
+            body: JSON.stringify({
+                "occuDate": occuDate,
+                "serverip": savedIP,
+                "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 4, '"+ occuDate +"', '"+ occuDate +"', '"+cameras+"'",
+                "id":"",
+                "pw":""
+            })
+        });
+
+        if (!result4.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const lineDataList = await result4.json();
+        console.log("lineDataList", lineDataList);
+        console.log("result4", result4);
+
+
+
+
+
+        // Query 4 받기
+        const result4_1 = await fetch("/lineDataList01", {
+            method: "POST",
+            headers: { "Content-Type": "application/json;" },
+            body: JSON.stringify({
+                "serverip": savedIP,
+                "query": "SELECT * FROM TB_TEMP_RESULT",
+                "id":"",
+                "pw":""
+            })
+        });
+
+        if (!result4_1.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const lineDataList01 = await result4_1.json();
+        console.log("lineDataList01", lineDataList01);
+        console.log("result4_1", result4_1);
+
+
+
+        // lineChart(cameras); 
+
+
+
+
+
+
+
+    // (async () => {
+    //     try {
+    //         await fetchData2(savedIP, occuDate, cameras);
+    //         // fetchData 함수에서 반환한 데이터를 이용하여 원하는 작업 수행
+
+    //         // 각각의 응답 데이터를 이용하여 원하는 작업 수행
+    //     } catch (error) {
+    //         console.error('Error occurred:', error);
+    //     }
+    // })();
+
+
+
+
+
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+
+
+// var cameras;
+
+
+
+// async function fetchData2(savedIP, occuDate, cameras) {
+
+    
+//     try {
+//         const result0 = await fetch("/cameraNameList", {
+//             method: "POST",
+//             headers: { "Content-Type": "application/json;" },
+//             body: JSON.stringify({
+//                 "serverip": savedIP,
+//                 "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 0, '', '', ''",
+//                 "id":"",
+//                 "pw":""
+//             })
+//         }).then(resp => resp.json());
+
+
+//         const result0_1 = await fetch("/cameraNameList01", {
+//             method: "POST",
+//             headers: { "Content-Type": "application/json;" },
+//             body: JSON.stringify({
+//                 "serverip": savedIP,
+//                 "query": "SELECT * FROM TB_TEMP_RESULT",
+//                 "id":"",
+//                 "pw":""
+//             })
+//         }).then(resp => resp.json());
+
+
+
+//         const result4 = await fetch("/lineDataList", {
+//             method: "POST",
+//             headers: { "Content-Type": "application/json;" },
+//             body: JSON.stringify({
+//                 "occuDate": occuDate,
+//                 "serverip": savedIP,
+//                 "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 4, '"+ occuDate +"', '"+ occuDate +"', '"+cameras+"'",
+//                 "id":"",
+//                 "pw":""
+//             })
+//         }).then(resp => resp.json());
+
+//         //쿼리 수정해야 함.
+//         const result4_1 = await fetch("/lineDataList01", {
+//             method: "POST",
+//             headers: { "Content-Type": "application/json;" },
+//             body: JSON.stringify({
+//                 "serverip": savedIP,
+//                 "query": "SELECT * FROM TB_TEMP_RESULT",
+//                 "id":"",
+//                 "pw":""
+//             })
+//         }).then(resp => resp.json());
+
+//         console.log("cameraCountResp", cameraCountResp);
+//         // console.log("cameraIpListResp", cameraIpListResp);
+//         // console.log("gateLiveListResp", gateLiveListResp);
+
+//         // fetchData 함수를 호출하고 결과를 처리하는 예제
+//         (async () => {
+//             try {
+//                 await fetchData(savedIP, occuDate);
+//                 // fetchData 함수에서 반환한 데이터를 이용하여 원하는 작업 수행
+
+//                 // 각각의 응답 데이터를 이용하여 원하는 작업 수행
+//             } catch (error) {
+//                 console.error('Error occurred:', error);
+//             }
+//         })();
+
+//         liveInformation(cameraCountResp, cameraIpListResp, gateLiveListResp);
+
+//     } catch (error) {
+//         console.error('Error fetching data:', error);
+//         throw error;
+//     }
+
+// }
+
+
+
+
+
+
 
 
 
@@ -474,168 +654,4 @@ function formatToYYYYMMDD(dateString) {
     var month = (date.getMonth() + 1).toString().padStart(2, '0');
     var day = date.getDate().toString().padStart(2, '0');
     return year + month + day;
-}
-
-async function fetchData2(savedIP, occuDate){
-    var DBip = "172.16.0.93";
-
-    console.log('fetchData2 occuDate:', occuDate); // 콘솔에 occuDate 값 로그 출력
-    console.log('fetchData2 savedIP:', savedIP); // 콘솔에 savedIP 값 로그 출력
-    
-
-
-    try {
-        const cameraCountResp = await fetch("/cameraCount", {
-            method: "POST",
-            headers: { "Content-Type": "application/json;" },
-            body: JSON.stringify({
-                "serverip": savedIP,
-                "query": "SELECT COUNT(ip_addr) AS camera_total_cnt FROM TB_CAMERA"
-            })
-        }).then(resp => resp.json());
-
-        const cameraIpListResp = await fetch("/cameraIpList", {
-            method: "POST",
-            headers: { "Content-Type": "application/json;" },
-            body: JSON.stringify({
-                "serverip": savedIP,
-                "query": "SELECT ip_addr FROM TB_CAMERA"
-            })
-        }).then(resp => resp.json());
-
-        //쿼리 수정해야 함.
-        const gateLiveListResp = await fetch("/gateLiveList", {
-            method: "POST",
-            headers: { "Content-Type": "application/json;" },
-            body: JSON.stringify({
-                "serverip": savedIP,
-                "query": "SELECT SUM(DATA.gate_total) AS gate_total_cnt, SUM(DATA.gate_open) AS gate_open_cnt, SUM(DATA.gate_close) AS gate_close_cnt, SUM(DATA.gate_disable) AS gate_disable_cnt FROM (SELECT 1 AS gate_total, CASE WHEN status = 1 THEN 1 ELSE 0 END AS gate_open	, CASE WHEN status = 0 THEN 1 ELSE 0 END AS gate_close, CASE WHEN status = 0 THEN 0 WHEN  status = 1 THEN 0 ELSE 1 END AS gate_disable FROM TB_CIRCUIT_BREAKER_CONFIG) DATA"
-            })
-        }).then(resp => resp.json());
-        
-        console.log("cameraCountResp", cameraCountResp);
-        // console.log("cameraIpListResp", cameraIpListResp);
-        // console.log("gateLiveListResp", gateLiveListResp);
-        
-        // fetchData 함수를 호출하고 결과를 처리하는 예제
-        (async () => {
-            try {
-                await fetchData(savedIP, occuDate);
-                // fetchData 함수에서 반환한 데이터를 이용하여 원하는 작업 수행
-                
-                // 각각의 응답 데이터를 이용하여 원하는 작업 수행
-            } catch (error) {
-                console.error('Error occurred:', error);
-            }
-        })();
-        
-        liveInformation(cameraCountResp, cameraIpListResp, gateLiveListResp);
-
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        throw error;
-    }
-}
-
-
-
-async function fetchData(savedIP, occuDate) {
-    console.log("여기!");
-
-    var DBip = "172.16.0.93";
-    console.log('fetchData occuDate:', occuDate); // 콘솔에 occuDate 값 로그 출력
-    console.log('fetchData savedIP:', savedIP); // 콘솔에 savedIP 값 로그 출력
-    
-    
-
-    try {
-        console.log("호출!");
-        // 테이블 호출
-        const result1 = await fetch("/sendTableQuery", {
-            method: "POST",
-            headers: { "Content-Type": "application/json;" },
-            body: JSON.stringify({
-                "serverip": savedIP,
-                "query": "SELECT camera_name AS gate_name, CASE WHEN status = 1 THEN 'open' WHEN status = 0 THEN 'close' ELSE'' END AS gate_status , CASE WHEN status = 1 OR status = 0 THEN 'on' ELSE'off'END AS comm_status FROM TB_CIRCUIT_BREAKER_CONFIG"
-            })
-        });
-
-        if (!result1.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const sendTableQuery = await result1.json();
-        console.log("sendTableQuery", sendTableQuery);
-        console.log("result1", result1);
-
-        makeTable(sendTableQuery); 
-
-
-        //쿼리 수정해야 함.
-        // // 개문횟수
-        // const result2 = await fetch("/openGateList", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json;" },
-        //     body: JSON.stringify({
-        //         "serverip": "DBip",
-        //         "query": ""
-        //     })
-        // });
-
-        // if (!result2.ok) {
-        //     throw new Error('Network response was not ok');
-        // }
-
-        // const openGateList = await result2.json();
-        // console.log("Some other endpoint", result2);
-
-
-
-
-        //쿼리 수정해야 함.
-        // // 폐문횟수
-        // const result3 = await fetch("/closeGateList", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json;" },
-        //     body: JSON.stringify({
-        //         "serverip": "DBip",
-        //         "query": ""
-        //     })
-        // });
-
-        // if (!result3.ok) {
-        //     throw new Error('Network response was not ok');
-        // }
-
-        // const closeGateList = await result3.json();
-        // console.log("Some other endpoint", result3);
-
-
-
-
-
-        //쿼리 수정해야 함.
-        // // 라인차트
-        // const result4 = await fetch("/sendLineQuery", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json;" },
-        //     body: JSON.stringify({
-        //         "serverip": "DBip",
-        //         "query": ""
-        //     })
-        // });
-
-        // if (!result4.ok) {
-        //     throw new Error('Network response was not ok');
-        // }
-
-        // const sendLineQuery = await result4.json();
-        // console.log("Some other endpoint", result4);
-
-        // 이와 같이 필요한 만큼 fetch 호출을 추가할 수 있습니다.
-
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        throw error;
-    }
 }
