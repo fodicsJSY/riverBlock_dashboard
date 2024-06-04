@@ -23,8 +23,8 @@ function liveInformation(liveDataList01){
     // console.log("gateTotal", gateTotal);
 
     gateTotalCount.innerHTML = `${gateTotal} 개소`;
-    gateOpenCount.innerHTML = `${gateLive[0]} 개소`;
-    gateCloseCount.innerHTML = `${gateLive[1]} 개소`;
+    gateOpenCount.innerHTML = `${gateLive[1]} 개소`;
+    gateCloseCount.innerHTML = `${gateLive[0]} 개소`;
     noSignalGateCount.innerHTML = `${gateLive[2]} 개소`;
 
 
