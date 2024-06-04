@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
         yesterday();
         sendToServer(savedIP, forDate);
     });
-
+2
 
     document.getElementById('todayBtn').addEventListener("click", ()=>{
         // console.log("todayBtn클릭");
@@ -146,8 +146,8 @@ let data;
 async function sendToServer(savedIP, value) {
     // 형식을 YYYYMMDD로 변경
     let occuDate = formatToYYYYMMDD(value || forDate);
-    console.log('Sending occuDate to server:', occuDate); // 콘솔에 occuDate 값 로그 출력
-    console.log('sendToServer savedIP:', savedIP); // 콘솔에 savedIP 값 로그 출력
+    // console.log('Sending occuDate to server:', occuDate); // 콘솔에 occuDate 값 로그 출력
+    // console.log('sendToServer savedIP:', savedIP); // 콘솔에 savedIP 값 로그 출력
 
     
 
@@ -188,7 +188,7 @@ async function sendToServer(savedIP, value) {
             await fetchData(savedIP, occuDate);
             // fetchData 함수에서 반환한 데이터를 이용하여 원하는 작업 수행
         } catch (error) {
-            console.error('Error occurred:', error);
+            // console.error('Error occurred:', error);
         }
     })();
 
@@ -198,16 +198,16 @@ async function sendToServer(savedIP, value) {
 
 
 async function fetchData(savedIP, occuDate) {
-    console.log("여기!");
+    // console.log("여기!");
 
     // var DBip = "172.16.0.93";
-    console.log('fetchData occuDate:', occuDate); // 콘솔에 occuDate 값 로그 출력
-    console.log('fetchData savedIP:', savedIP); // 콘솔에 savedIP 값 로그 출력
+    // console.log('fetchData occuDate:', occuDate); // 콘솔에 occuDate 값 로그 출력
+    // console.log('fetchData savedIP:', savedIP); // 콘솔에 savedIP 값 로그 출력
     
     
 
     try {
-        console.log("호출!");
+        // console.log("호출!");
 
 
 
@@ -219,6 +219,7 @@ async function fetchData(savedIP, occuDate) {
                 "occuDate": occuDate,
                 "serverip": savedIP,
                 "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 1, '"+ occuDate +"', '"+ occuDate +"', ''",
+                "port" : 12000,
                 // "query": "SELECT * FROM TB_TEMP_RESULT",
                 "id":"",
                 "pw":""
@@ -230,8 +231,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const openDataList = await result1.json();
-        console.log("openDataList", openDataList);
-        console.log("result1", result1);
+        // console.log("openDataList", openDataList);
+        // console.log("result1", result1);
 
 
 
@@ -244,6 +245,7 @@ async function fetchData(savedIP, occuDate) {
                 "serverip": savedIP,
                 // "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 1, '"+ occuDate +"', '"+ occuDate +"', ''",
                 "query": "SELECT * FROM TB_TEMP_RESULT",
+                "port" : 12000,
                 "id":"",
                 "pw":""
             })
@@ -254,8 +256,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const openDataList01 = await result1_1.json();
-        console.log("openDataList01", openDataList01);
-        console.log("result1_1", result1_1);
+        // console.log("openDataList01", openDataList01);
+        // console.log("result1_1", result1_1);
 
 
         openDounutChart(openDataList01); 
@@ -269,6 +271,7 @@ async function fetchData(savedIP, occuDate) {
                 "occuDate": occuDate,
                 "serverip": savedIP,
                 "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 2, '"+ occuDate +"', '"+ occuDate +"', ''",
+                "port" : 12000,
                 // "query": "SELECT * FROM TB_TEMP_RESULT",
                 "id":"",
                 "pw":""
@@ -280,8 +283,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const closeDataList = await result2.json();
-        console.log("closeDataList", closeDataList);
-        console.log("result2", result2);
+        // console.log("closeDataList", closeDataList);
+        // console.log("result2", result2);
 
 
         // Query 2 받기
@@ -292,6 +295,7 @@ async function fetchData(savedIP, occuDate) {
                 "occuDate": occuDate,
                 "serverip": savedIP,
                 "query": "SELECT * FROM TB_TEMP_RESULT",
+                "port" : 12000,
                 "id":"",
                 "pw":""
             })
@@ -302,8 +306,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const closeDataList01 = await result2_1.json();
-        console.log("closeDataList01", closeDataList01);
-        console.log("result2_1", result2_1);
+        // console.log("closeDataList01", closeDataList01);
+        // console.log("result2_1", result2_1);
 
 
         closeDounutChart(closeDataList01); 
@@ -317,6 +321,7 @@ async function fetchData(savedIP, occuDate) {
             body: JSON.stringify({
                 "serverip": savedIP,
                 "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 3, '', '', ''",
+                "port" : 12000,
                 "id":"",
                 "pw":""
             })
@@ -327,8 +332,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const tableDataList = await result3.json();
-        console.log("tableDataList", tableDataList);
-        console.log("result3", result3);
+        // console.log("tableDataList", tableDataList);
+        // console.log("result3", result3);
 
 
 
@@ -339,6 +344,7 @@ async function fetchData(savedIP, occuDate) {
             body: JSON.stringify({
                 "serverip": savedIP,
                 "query": "SELECT * FROM TB_TEMP_RESULT",
+                "port" : 12000,
                 "id":"",
                 "pw":""
             })
@@ -349,8 +355,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const tableDataList01 = await result3_1.json();
-        console.log("tableDataList01", tableDataList01);
-        console.log("result3_1", result3_1);
+        // console.log("tableDataList01", tableDataList01);
+        // console.log("result3_1", result3_1);
 
         makeTable(tableDataList01); 
 
@@ -366,6 +372,7 @@ async function fetchData(savedIP, occuDate) {
             body: JSON.stringify({
                 "serverip": savedIP,
                 "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 5, '', '', ''",
+                "port" : 12000,
                 // "query": "SELECT * FROM TB_TEMP_RESULT",
                 "id":"",
                 "pw":""
@@ -377,8 +384,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const liveDataList = await result5.json();
-        console.log("liveDataList", liveDataList);
-        console.log("result5", result5);
+        // console.log("liveDataList", liveDataList);
+        // console.log("result5", result5);
 
 
 
@@ -390,6 +397,7 @@ async function fetchData(savedIP, occuDate) {
             body: JSON.stringify({
                 "serverip": savedIP,
                 "query": "SELECT * FROM TB_TEMP_RESULT",
+                "port" : 12000,
                 "id":"",
                 "pw":""
             })
@@ -400,7 +408,7 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const liveDataList01 = await result5_1.json();
-        console.log("liveDataList01", liveDataList01);
+        // console.log("liveDataList01", liveDataList01);
         // console.log("result5_1", result5_1);
 
         liveInformation(liveDataList01); 
@@ -416,6 +424,7 @@ async function fetchData(savedIP, occuDate) {
             body: JSON.stringify({
                 "serverip": savedIP,
                 "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 0, '', '', ''",
+                "port" : 12000,
                 "id":"",
                 "pw":""
             })
@@ -426,8 +435,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const cameraNameList = await result0.json();
-        console.log("cameraNameList", cameraNameList);
-        console.log("result0", result0);
+        // console.log("cameraNameList", cameraNameList);
+        // console.log("result0", result0);
         
 
 
@@ -441,6 +450,7 @@ async function fetchData(savedIP, occuDate) {
             body: JSON.stringify({
                 "serverip": savedIP,
                 "query": "SELECT * FROM TB_TEMP_RESULT",
+                "port" : 12000,
                 "id":"",
                 "pw":""
             })
@@ -451,26 +461,26 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const cameraNameList01 = await result0_1.json();
-        console.log("cameraNameList01", cameraNameList01);
-        console.log("result0_1", result0_1);
+        // console.log("cameraNameList01", cameraNameList01);
+        // console.log("result0_1", result0_1);
 
 
 
 
         var cameraList = [];
 
-        console.log("cameraNameList01.result.length", cameraNameList01.result.length);
+        // console.log("cameraNameList01.result.length", cameraNameList01.result.length);
 
         for(let i = 0; i < cameraNameList01.result.length; i++){
-            console.log("cameraNameList01.result[i]", cameraNameList01.result[i]);
+            // console.log("cameraNameList01.result[i]", cameraNameList01.result[i]);
             cameraList.push(cameraNameList01.result[i][0]);
-            console.log("cameraList1", cameraList);
+            // console.log("cameraList1", cameraList);
         }
-        console.log("cameraList2", cameraList);
+        // console.log("cameraList2", cameraList);
         
         // 중복을 제거한 후에 중복 제거된 값들의 배열을 만듭니다.
         const cameras = [...new Set(cameraList)];
-        console.log("cameras", cameras);
+        // console.log("cameras", cameras);
 
 
 
@@ -484,6 +494,7 @@ async function fetchData(savedIP, occuDate) {
                 "occuDate": occuDate,
                 "serverip": savedIP,
                 "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 4, '"+ occuDate +"', '"+ occuDate +"', '"+cameras+"'",
+                "port" : 12000,
                 "id":"",
                 "pw":""
             })
@@ -494,8 +505,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const lineDataList = await result4.json();
-        console.log("lineDataList", lineDataList);
-        console.log("result4", result4);
+        // console.log("lineDataList", lineDataList);
+        // console.log("result4", result4);
 
 
 
@@ -508,6 +519,7 @@ async function fetchData(savedIP, occuDate) {
             body: JSON.stringify({
                 "serverip": savedIP,
                 "query": "SELECT * FROM TB_TEMP_RESULT",
+                "port" : 12000,
                 "id":"",
                 "pw":""
             })
@@ -518,8 +530,8 @@ async function fetchData(savedIP, occuDate) {
         }
 
         const lineDataList01 = await result4_1.json();
-        console.log("lineDataList01", lineDataList01);
-        console.log("result4_1", result4_1);
+        // console.log("lineDataList01", lineDataList01);
+        // console.log("result4_1", result4_1);
 
 
 
@@ -547,7 +559,7 @@ async function fetchData(savedIP, occuDate) {
 
 
     } catch (error) {
-        console.error('Error fetching data:', error);
+        // console.error('Error fetching data:', error);
         throw error;
     }
 }
