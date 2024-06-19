@@ -9,77 +9,68 @@ settingButton.addEventListener("click", ()=>{
 
 
 
+// ip 2개 받아서 로그인하는 것으로 수정해야 함
 
 // IP명 받기
 async function getDBIP() {
-    const { value: ipAddr } = await Swal.fire({
-        title: "IP를 입력해주세요.",
-        input: "text",
-        inputLabel: "IP를 입력해주세요.",
-        // inputValue: savedIP, // 이전에 저장된 IP를 기본값으로 설정
-        showCancelButton: true,
-        inputValidator: (value) => {
-            // console.log("value : ", value);
-            if (!value) {
-                return getDBIP();
+    const { value: formValues } = await Swal.fire({
+        title: "IP와 PORT를 입력해주세요.",
+        html: `
+            <input id="swal-input1" class="swal2-input" placeholder="IP">
+            <input id="swal-input2" class="swal2-input" placeholder="PORT">
+        `,
+        focusConfirm: true,
+        preConfirm: () => {
+            const inputIP = document.getElementById('swal-input1').value;
+            const inputPORT = document.getElementById('swal-input2').value;
+
+            if (!inputIP || !inputPORT) {
+                Swal.showValidationMessage('IP와 PORT 모두 입력해주세요.');
+                return;
             }
-        }
+
+            return { inputIP, inputPORT };
+        },
+        showCancelButton: true,
     });
 
-    // 사용자가 새로운 IP를 입력했을 경우에만 저장
-    if (ipAddr && ipAddr !== savedIP) {
-        saveIPToLocalStorage(ipAddr);
+    if (formValues) {
+        const { inputIP, inputPORT } = formValues;
+        saveIP_ToLocalStorage(inputIP);
+        savePORT_ToLocalStorage(inputPORT);
+        // initialize(dataIP, input1, input2);  // 필요한 경우 초기화 호출
     }
-    initialize(ipAddr);
-    // console.log("ipAddr: ", ipAddr);
-    return ipAddr;
+}
+
+
+
+// 로컬 스토리지에 IP 주소를 저장하는 함수
+function saveIP_ToLocalStorage(inputIP) {
+    localStorage.setItem("inputIP", inputIP);
 }
 
 // 로컬 스토리지에서 IP 주소를 가져오는 함수
-function getIPFromLocalStorage() {
-    return localStorage.getItem("dbIP");
+function getIP_FromLocalStorage() {
+    return {
+        saveIP: localStorage.getItem("inputIP")
+    };
+}
+
+
+// 로컬 스토리지에 PORT를 저장하는 함수
+function savePORT_ToLocalStorage(inputPORT) {
+    localStorage.setItem("inputPORT", inputPORT);
+}
+
+// 로컬 스토리지에서 PORT를 가져오는 함수
+function getPORT_FromLocalStorage() {
+    return {
+        savePORT: localStorage.getItem("inputPORT")
+    };
 }
 
 
 
-// inputDate 엘리먼트 초기화
-var inputDate = document.getElementById('inputDate');
-let savedIP;
-
-// 초기화할 때 로컬 스토리지에서 IP를 가져와 사용
-async function initialize() {
-    savedIP = getIPFromLocalStorage();
-    // if (savedIP) {
-    //     await ipFetch(savedIP);
-    // }
-    console.log("initialize savedIP", savedIP);
-
-    
-    // forDate 변수 초기화
-    forDate = new Date(inputDate.value);
-    today();
-    // inputDate 엘리먼트 값 변경 이벤트 핸들러 등록
-    inputDate.addEventListener('change', function() {
-        sendToServer(savedIP, this.value);
-    });
-
-    // 날짜 보내기 
-    console.log("날짜보내기");
-
-    (async () => {
-        try {
-            sendToServer(savedIP, forDate);
-            // fetchData 함수에서 반환한 데이터를 이용하여 원하는 작업 수행
-        } catch (error) {
-            console.error('Error occurred:', error);
-        }
-    })();
-    
-}
 
 
-// 사용자가 입력한 IP 주소를 로컬 스토리지에 저장하는 함수
-function saveIPToLocalStorage(ipAddr) {
-    localStorage.setItem("dbIP", ipAddr);
-}
 

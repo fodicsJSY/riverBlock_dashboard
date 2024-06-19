@@ -395,7 +395,6 @@
     }
 
 
-
     .calendarBtn::-webkit-datetime-edit-text {
         -webkit-appearance: none;
         display: none;
@@ -515,6 +514,13 @@
         padding: 0 10px 0 0;
         color: #7A7A7A !important;
     }
+
+
+
+    /* .statsBtn:hover{
+    cursor: pointer;
+    color:#FFA800;
+} */
 
     .statsIcon{
         position: absolute;

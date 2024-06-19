@@ -1,7 +1,7 @@
 let tableDataList; 
 
 function makeTable(sendTableQuery){
-    // console.log("sendTableQuery", sendTableQuery );
+   // console.log("sendTableQuery", sendTableQuery );
     tableDataList = sendTableQuery.result;
 
     // console.log("tableDataList", tableDataList );
@@ -47,7 +47,7 @@ function makeTable(sendTableQuery){
 
         var tr = document.createElement("tr");
         gateTbody.appendChild(tr);
-        createCell(tr, "td", "gatetd", item[0]);
+        createCell(tr, "td", "gatetd", item[1]);
 
         var div1 = document.createElement("div");
         div1.className = "gateIconBox";
@@ -60,15 +60,15 @@ function makeTable(sendTableQuery){
         // // console.log("item.gateStatus : ", item.gateStatus );
         
 
-        if(item[1] == 'close'){
+        if(item[2] == 'close'){
             gateImg.src = "/resources/img/iconBTN_GateClose.png";
         }
-        if(item[1] == 'open'){
+        if(item[2] == 'open'){
             gateImg.src = "/resources/img/iconBTN_GateOpen.png";
         }
         div1.appendChild(gateImg);
         
-        if(item[1] == 'disconnected'){
+        if(item[2] == 'disconnected'){
             div1.innerHTML = "-";
         }
 
@@ -77,10 +77,10 @@ function makeTable(sendTableQuery){
         signalImg.className = "signalIcon";
 
         // // console.log("item.commStatus : ", item.commStatus );
-        if(item[2] == 'on'){
+        if(item[3] == 'on'){
             signalImg.src = "/resources/img/connect-signalOK.png";
         }
-        if(item[2] == 'off'){
+        if(item[3] == 'off'){
             signalImg.src = "/resources/img/connect-signalNO.png";
         }
 

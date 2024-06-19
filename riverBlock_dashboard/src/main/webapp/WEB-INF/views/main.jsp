@@ -121,7 +121,7 @@
                     </div>
                     <div class="btnContainer">
                         <div class="statsBtnBox"><button class="textBtn abled settingBtn" id="settingButton">설정</button></div>
-                        <div class="statsBtnBox"><button class="statsBtn" ><img src="/resources/img/icon_stats.png" class="statsIcon" alt="" disabled>&nbsp;통계</button></div>
+                        <div class="statsBtnBox"><button class="statsBtn" ><img src="/resources/img/icon_stats.png" class="statsIcon" alt="">&nbsp;통계</button></div>
                     </div>
                 </div>
                 
@@ -175,10 +175,19 @@
     </section>
     </main>
 
-
+    <c:if test="${not empty message}">
+        <script>
+            Swal.fire({
+                text: "${message}",
+                icon: 'info',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    </c:if>
 
     <script>
-
+        var user_id = "${loginUser.user_id}";
+        var user_pw = "${loginUser.user_pw}";
     </script>
 
     <%-- 전역변수 시작 --%>
@@ -196,6 +205,6 @@
     <script src="/resources/js/table.js"></script>
     <script src="/resources/js/liveInfo.js"></script>
     <script src="/resources/js/dbSetting.js"></script>
-    <script src="/resources/js/refresh.js"></script>
+    <%-- <script src="/resources/js/refresh.js"></script> --%>
 </body>
 </html>

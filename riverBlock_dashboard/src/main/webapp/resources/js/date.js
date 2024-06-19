@@ -9,15 +9,25 @@ var forDate;
 // 페이지 로드 시 오늘 날짜로 초기화
 document.addEventListener("DOMContentLoaded", ()=> {
 
+    console.log("user_id : ", user_id);
+    console.log("user_pw : ", user_pw);
+
     // inputDate 엘리먼트 초기화
     var inputDate = document.getElementById('inputDate');
-    savedIP = getIPFromLocalStorage();
+
+    savedIP = getIP_FromLocalStorage().saveIP;
+    console.log("savedIP", savedIP);
+
+    savePORT = getPORT_FromLocalStorage().savePORT;
+    console.log("savePORT : ", savePORT);
+
+
     // forDate 변수 초기화
     forDate = new Date(inputDate.value);
 
     // inputDate 엘리먼트 값 변경 이벤트 핸들러 등록
     inputDate.addEventListener('change', function() {
-        sendToServer(savedIP, this.value);
+        sendToServer(savedIP, savePORT, this.value, user_id, user_pw);
     });
 
     // 초기화 함수 호출
@@ -25,7 +35,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
 
 
     // 날짜 보내기 
-    sendToServer(savedIP, forDate);
+    sendToServer(savedIP, savePORT, forDate, user_id, user_pw);
 
 });
 
@@ -34,42 +44,42 @@ document.addEventListener("DOMContentLoaded", ()=> {
     
     document.getElementById('calenderButton').addEventListener('change', function() {
         inputDate.value = this.value;
-        sendToServer(savedIP, this.value);
+        sendToServer(savedIP, savePORT, this.value, user_id, user_pw);
     });
 
 
     document.getElementById('leftBtn').addEventListener("click", ()=>{
         // console.log("leftBtn클릭");
         beforeOneDay();
-        sendToServer(savedIP, forDate);
+        sendToServer(savedIP, savePORT, forDate, user_id, user_pw);
     });
 
 
     document.getElementById('rightBtn').addEventListener("click", ()=>{
         // console.log("rightBtn클릭");
         afterOneDay();
-        sendToServer(savedIP, forDate);
+        sendToServer(savedIP, savePORT, forDate, user_id, user_pw);
     });
 
 
     document.getElementById('yesterdayBtn').addEventListener("click", ()=>{
         // console.log("yesterdayBtn클릭");
         yesterday();
-        sendToServer(savedIP, forDate);
+        sendToServer(savedIP, savePORT, forDate, user_id, user_pw);
     });
-2
+
 
     document.getElementById('todayBtn').addEventListener("click", ()=>{
         // console.log("todayBtn클릭");
         today();
-        sendToServer(savedIP, forDate);
+        sendToServer(savedIP, savePORT, forDate, user_id, user_pw);
     });
 
 
     document.getElementById('beforeWeekBtn').addEventListener("click", ()=>{
         // console.log("beforeWeekBtn클릭");
         before1weekBtn();
-        sendToServer(savedIP, forDate);
+        sendToServer(savedIP, savePORT, forDate, user_id, user_pw);
     });
 
 
@@ -112,12 +122,15 @@ function yesterday(){
 
 // 오늘 날짜로 초기화
 function today(){
-    var today = new Date();
+    var date = new Date;
+    let offset = date.getTimezoneOffset() * 60000; //ms단위라 60000곱해줌
+    var today = new Date(date.getTime() - offset);
+    // console.log("today  : ", today);/
     var formattedDate = today.toISOString().substring(0, 10);
     inputDate.value = formattedDate;
     // console.log("formattedDate : ", formattedDate);
     forDate = formattedDate; // forDate 초기화
-    // console.log("오늘날짜 : ", forDate);
+    // console.log("today 오늘날짜 : ", forDate);
 }
 
 // 1주 전으로 초기화
@@ -135,7 +148,7 @@ function before1weekBtn(){
 // input태그 날짜 직접 입력
 inputDate.addEventListener('keyup', function() {
     // console.log("inputDate 변경됨 : ", this.value);
-    sendToServer(savedIP, this.value);
+    sendToServer(savedIP, savePORT, this.value, user_id, user_pw);
 });
 
 
@@ -143,7 +156,7 @@ inputDate.addEventListener('keyup', function() {
 let data;
 
 /* 날짜 보내기 */
-async function sendToServer(savedIP, value) {
+async function sendToServer(savedIP, savePORT, value, user_id, user_pw) {
     // 형식을 YYYYMMDD로 변경
     let occuDate = formatToYYYYMMDD(value || forDate);
     // console.log('Sending occuDate to server:', occuDate); // 콘솔에 occuDate 값 로그 출력
@@ -185,7 +198,7 @@ async function sendToServer(savedIP, value) {
     // // fetchData2 함수를 호출하고 결과를 처리하는 예제
     (async () => {
         try {
-            await fetchData(savedIP, occuDate);
+            await fetchData(savedIP, savePORT, occuDate, user_id, user_pw);
             // fetchData 함수에서 반환한 데이터를 이용하여 원하는 작업 수행
         } catch (error) {
             // console.error('Error occurred:', error);
@@ -197,7 +210,9 @@ async function sendToServer(savedIP, value) {
 
 
 
-async function fetchData(savedIP, occuDate) {
+async function fetchData(savedIP, savePORT, occuDate, user_id, user_pw) {
+    console.log("fetchData user_id : ", user_id);
+    console.log("fetchData user_pw : ", user_pw);
     // console.log("여기!");
 
     // var DBip = "172.16.0.93";
@@ -219,10 +234,10 @@ async function fetchData(savedIP, occuDate) {
                 "occuDate": occuDate,
                 "serverip": savedIP,
                 "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 1, '"+ occuDate +"', '"+ occuDate +"', ''",
-                "port" : 12000,
+                "port" : savePORT,
                 // "query": "SELECT * FROM TB_TEMP_RESULT",
-                "id":"",
-                "pw":""
+                "user_id": user_id,
+                "user_pw": user_pw
             })
         });
 
@@ -245,9 +260,9 @@ async function fetchData(savedIP, occuDate) {
                 "serverip": savedIP,
                 // "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 1, '"+ occuDate +"', '"+ occuDate +"', ''",
                 "query": "SELECT * FROM TB_TEMP_RESULT",
-                "port" : 12000,
-                "id":"",
-                "pw":""
+                "port" : savePORT,
+                "user_id": user_id,
+                "user_pw": user_pw
             })
         });
 
@@ -271,10 +286,10 @@ async function fetchData(savedIP, occuDate) {
                 "occuDate": occuDate,
                 "serverip": savedIP,
                 "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 2, '"+ occuDate +"', '"+ occuDate +"', ''",
-                "port" : 12000,
+                "port" : savePORT,
                 // "query": "SELECT * FROM TB_TEMP_RESULT",
-                "id":"",
-                "pw":""
+                "user_id": user_id,
+                "user_pw": user_pw
             })
         });
 
@@ -295,9 +310,9 @@ async function fetchData(savedIP, occuDate) {
                 "occuDate": occuDate,
                 "serverip": savedIP,
                 "query": "SELECT * FROM TB_TEMP_RESULT",
-                "port" : 12000,
-                "id":"",
-                "pw":""
+                "port" : savePORT,
+                "user_id": user_id,
+                "user_pw": user_pw
             })
         });
 
@@ -321,9 +336,9 @@ async function fetchData(savedIP, occuDate) {
             body: JSON.stringify({
                 "serverip": savedIP,
                 "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 3, '', '', ''",
-                "port" : 12000,
-                "id":"",
-                "pw":""
+                "port" : savePORT,
+                "user_id": user_id,
+                "user_pw": user_pw
             })
         });
 
@@ -344,9 +359,9 @@ async function fetchData(savedIP, occuDate) {
             body: JSON.stringify({
                 "serverip": savedIP,
                 "query": "SELECT * FROM TB_TEMP_RESULT",
-                "port" : 12000,
-                "id":"",
-                "pw":""
+                "port" : savePORT,
+                "user_id": user_id,
+                "user_pw": user_pw
             })
         });
 
@@ -372,10 +387,10 @@ async function fetchData(savedIP, occuDate) {
             body: JSON.stringify({
                 "serverip": savedIP,
                 "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 5, '', '', ''",
-                "port" : 12000,
+                "port" : savePORT,
                 // "query": "SELECT * FROM TB_TEMP_RESULT",
-                "id":"",
-                "pw":""
+                "user_id": user_id,
+                "user_pw": user_pw
             })
         });
 
@@ -397,9 +412,9 @@ async function fetchData(savedIP, occuDate) {
             body: JSON.stringify({
                 "serverip": savedIP,
                 "query": "SELECT * FROM TB_TEMP_RESULT",
-                "port" : 12000,
-                "id":"",
-                "pw":""
+                "port" : savePORT,
+                "user_id": user_id,
+                "user_pw": user_pw
             })
         });
 
@@ -424,9 +439,9 @@ async function fetchData(savedIP, occuDate) {
             body: JSON.stringify({
                 "serverip": savedIP,
                 "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 0, '', '', ''",
-                "port" : 12000,
-                "id":"",
-                "pw":""
+                "port" : savePORT,
+                "user_id": user_id,
+                "user_pw": user_pw
             })
         });
 
@@ -450,9 +465,9 @@ async function fetchData(savedIP, occuDate) {
             body: JSON.stringify({
                 "serverip": savedIP,
                 "query": "SELECT * FROM TB_TEMP_RESULT",
-                "port" : 12000,
-                "id":"",
-                "pw":""
+                "port" : savePORT,
+                "user_id": user_id,
+                "user_pw": user_pw
             })
         });
 
@@ -473,7 +488,7 @@ async function fetchData(savedIP, occuDate) {
 
         for(let i = 0; i < cameraNameList01.result.length; i++){
             // console.log("cameraNameList01.result[i]", cameraNameList01.result[i]);
-            cameraList.push(cameraNameList01.result[i][0]);
+            cameraList.push(cameraNameList01.result[i][1]);
             // console.log("cameraList1", cameraList);
         }
         // console.log("cameraList2", cameraList);
@@ -494,9 +509,9 @@ async function fetchData(savedIP, occuDate) {
                 "occuDate": occuDate,
                 "serverip": savedIP,
                 "query": "EXEC SP_GET_GATE_CONTROL_DSASHBOARD_DATA 4, '"+ occuDate +"', '"+ occuDate +"', '"+cameras+"'",
-                "port" : 12000,
-                "id":"",
-                "pw":""
+                "port" : savePORT,
+                "user_id": user_id,
+                "user_pw": user_pw
             })
         });
 
@@ -519,9 +534,9 @@ async function fetchData(savedIP, occuDate) {
             body: JSON.stringify({
                 "serverip": savedIP,
                 "query": "SELECT * FROM TB_TEMP_RESULT",
-                "port" : 12000,
-                "id":"",
-                "pw":""
+                "port" : savePORT,
+                "user_id": user_id,
+                "user_pw": user_pw
             })
         });
 

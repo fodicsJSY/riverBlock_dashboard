@@ -1,0 +1,208 @@
+/* @media(min-width: 2560px){ */
+
+
+
+    *{ 
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    }
+    
+    
+    /* 다 만들고 삭제예정 */
+    div, main, section, header, footer, article, nav, aside, form 
+    { 
+        /* border: 1px solid blue;  */
+    }  
+    
+    
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* 최소 높이를 뷰포트 높이의 100%로 설정합니다. */
+        justify-content: center;
+        background-color: #333;
+        color:white;
+    }
+
+
+    header{
+        height: 94px;
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background-color: #1e1e1e;
+    }
+
+    .headContiner{
+        width: 1780px; height: 100%; display:flex; align-items: center;
+    }
+
+    .headContent{
+        width: 1000px;
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 0 0 0 15px;
+        background-color: #1e1e1e;
+    }
+
+    .headContent *{
+        background-color: #1e1e1e;
+    }
+
+
+    .slogan{
+        height: 94px;
+    }
+
+    .logo{
+        width: 79px;
+        height: 60px;
+        margin-left: 30px;
+    }
+
+
+
+    main{
+        /* width: 1140px; */
+        margin: auto;
+        min-width: 100%;
+        min-height: 1100px;
+
+        /* min-height: 요소의 최소 높이  
+                        -> 내부 요소 없어도 최소 높이 유지
+                        -> 내부 요소가 지정된 크기를 초과하면 
+                            그에 맞게 늘어남
+        */
+        /* min-height: 500px; */
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    section{
+        /* width: 100%;
+        height: 100%; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .contentsContainer{
+        width: 550px;
+        height: 450px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .loginContainer{
+        width: 550px;
+        height: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
+    }
+
+
+
+    .loginContainer>div:first-child{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: end;
+        margin-bottom: 30px;
+    }
+
+
+    .loginText{
+        text-align: center;
+        font-size: 55px;
+        font-weight: bold;
+    }
+
+
+    .loginContainer>div:nth-child(2){
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .constentsCon{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .textCon{
+        display: flex;
+        flex-direction: column;
+
+    }
+    
+    .textCon *{
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        margin-bottom: 20px;
+    }
+
+    
+    .inputCon *{
+        margin: 0 0 5px 5px;
+    }
+    
+    
+
+    .textContainer{
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+
+    input{
+        width: 230px;
+        height: 35px;
+        border-radius: 5px;
+        border: 1.5px solid black;
+        padding-left: 15px;
+        background-color: white;
+    }
+
+
+    button{
+        width: 100px;
+        height: 30px;
+        background-color: #1e1e1e;
+        text-align: center;
+        color: #fff;
+        border-radius: 5px;
+        margin-left: 30px;
+    }
+    
+    
+    button:hover{
+        cursor: pointer;
+    }
+
+
+    .settingButton{
+        margin: 10px 0 10px 30px;
+    }
+
+
+
+

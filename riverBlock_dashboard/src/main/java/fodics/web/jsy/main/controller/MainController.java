@@ -51,10 +51,11 @@ public class MainController {
 
 	
 	
-	@GetMapping("/")
+	@GetMapping("/main")
 	public String home() {
 		return "main";
 	}
+	
 	
 	
 	// DB IP가져오기 
@@ -131,7 +132,7 @@ public class MainController {
 //		     System.out.println("openGate req: " + req);
 
 		    String ipAddress;
-		    String port;
+		    String urlport;
 
 		    // MappingJackson2HttpMessageConverter 추가
 		    restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -140,9 +141,9 @@ public class MainController {
 		    	InputStream is = getClass().getResourceAsStream("/server_info.ini");
 		        Scanner s = new Scanner(is);
 		        ipAddress = s.nextLine();
-		        port = s.nextLine();
+		        urlport = s.nextLine();
 //		        System.out.println("openGate ipAddress : "+ ipAddress);
-//		        System.out.println("openGate port : "+ port);
+//		        System.out.println("openGate urlport : "+ urlport);
 		        s.close();
 		        is.close();
 
@@ -151,12 +152,17 @@ public class MainController {
 		        String occuDate = jsonObject.getString("occuDate");
 		        String serverip = jsonObject.getString("serverip");
 		        String query = jsonObject.getString("query");
-		        int port1 = jsonObject.getInt("port");
+		        int port = jsonObject.getInt("port");
+		        String user_id = jsonObject.getString("user_id");
+		        String user_pw = jsonObject.getString("user_pw");
 //	            System.out.println("openGate occuDate : "+ occuDate);
 //	            System.out.println("openGate serverip : "+ serverip);
 //	            System.out.println("openGate query : "+ query);
+//	            System.out.println("openGate port : "+ port);
+//	            System.out.println("openGate user_id : "+ user_id);
+//	            System.out.println("openGate user_pw : "+ user_pw);
 
-		        String execute_url = "http://"+ipAddress+":"+port+"/fnvr/request/query/execute"; // 외부 RESTful API의 URL select
+		        String execute_url = "http://"+ipAddress+":"+urlport+"/fnvr/request/query/execute"; // 외부 RESTful API의 URL select
 //		        System.out.println("openGate url : "+ execute_url);
 
 		        // 서버로 전송할 객체 생성
@@ -164,7 +170,9 @@ public class MainController {
 		        requestBody.put("occuDate", occuDate);
 		        requestBody.put("query", query);
 		        requestBody.put("serverip", serverip);
-		        requestBody.put("port", port1);
+		        requestBody.put("port", port);
+		        requestBody.put("user_id", user_id);
+		        requestBody.put("user_pw", user_pw);
 //		        System.out.println("openGate requestBody : "+ requestBody);
 
 		        // 요청 헤더 설정
@@ -208,7 +216,7 @@ public class MainController {
 //		 System.out.println("openGate01 req: " + req);
 		
 		String ipAddress;
-		String port;
+		String urlport;
 		
 		// MappingJackson2HttpMessageConverter 추가
 		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -217,7 +225,7 @@ public class MainController {
 			InputStream is = getClass().getResourceAsStream("/server_info.ini");
 			Scanner s = new Scanner(is);
 			ipAddress = s.nextLine();
-			port = s.nextLine();
+			urlport = s.nextLine();
 //			System.out.println("openGate01 ipAddress : "+ ipAddress);
 //			System.out.println("openGate01 port : "+ port);
 			s.close();
@@ -229,11 +237,16 @@ public class MainController {
 			String serverip = jsonObject.getString("serverip");
 			String query = jsonObject.getString("query");
 		    int port1 = jsonObject.getInt("port");
+		    String user_id = jsonObject.getString("user_id");
+		    String user_pw = jsonObject.getString("user_pw");
 //			System.out.println("openGate01 occuDate : "+ occuDate);
-//			System.out.println("openGate01 serverip : "+ serverip);
 //			System.out.println("openGate01 query : "+ query);
+//			System.out.println("openGate01 serverip : "+ serverip);
+//			System.out.println("openGate01 query : "+ port1);
+//			System.out.println("openGate01 user_id : "+ user_id);
+//			System.out.println("openGate01 user_pw : "+ user_pw);
 			
-			String select_url = "http://"+ipAddress+":"+port+"/fnvr/request/query/select"; // 외부 RESTful API의 URL select
+			String select_url = "http://"+ipAddress+":"+urlport+"/fnvr/request/query/select"; // 외부 RESTful API의 URL select
 //			System.out.println("openGate url : "+ select_url);
 			
 			// 서버로 전송할 객체 생성
@@ -242,6 +255,8 @@ public class MainController {
 			requestBody.put("query", query);
 			requestBody.put("serverip", serverip);
 			requestBody.put("port", port1);
+			requestBody.put("user_id", user_id);
+			requestBody.put("user_pw", user_pw);
 //			System.out.println("openGate01 requestBody : "+ requestBody);
 			
 			// 요청 헤더 설정
@@ -280,7 +295,7 @@ public class MainController {
 			@RequestBody  String req
 			) {
 		
-		//  //  System.out.println("closeGate req: " + req);
+//		    System.out.println("closeGate req: " + req);
 
 	    String ipAddress;
 	    String port;
@@ -304,6 +319,8 @@ public class MainController {
 	        String serverip = jsonObject.getString("serverip");
 	        String query = jsonObject.getString("query");
 	        int port1 = jsonObject.getInt("port");
+	        String user_id = jsonObject.getString("user_id");
+	        String user_pw = jsonObject.getString("user_pw");
 	       //  //  System.out.println("closeGate occuDate : "+ occuDate);
 	       //  //  System.out.println("closeGate serverip : "+ serverip);
 	       //  //  System.out.println("closeGate query : "+ query);
@@ -317,6 +334,8 @@ public class MainController {
 	        requestBody.put("query", query);
 	        requestBody.put("serverip", serverip);
 	        requestBody.put("port", port1);
+	        requestBody.put("user_id", user_id);
+	        requestBody.put("user_pw", user_pw);
 	       //  //  System.out.println("closeGate requestBody : "+ requestBody);
 
 	        // 요청 헤더 설정
@@ -358,7 +377,7 @@ public class MainController {
 			@RequestBody  String req
 			) {
 		
-		//  System.out.println("closeGate01 req: " + req);
+//		  System.out.println("closeGate01 req: " + req);
 		
 		String ipAddress;
 		String port;
@@ -382,6 +401,8 @@ public class MainController {
 			String serverip = jsonObject.getString("serverip");
 			String query = jsonObject.getString("query");
 		       int port1 = jsonObject.getInt("port");
+		       String user_id = jsonObject.getString("user_id");
+		       String user_pw = jsonObject.getString("user_pw");
 			//  System.out.println("closeGate01 occuDate : "+ occuDate);
 			//  System.out.println("closeGate01 serverip : "+ serverip);
 			//  System.out.println("closeGate01 query : "+ query);
@@ -395,6 +416,8 @@ public class MainController {
 			requestBody.put("query", query);
 			requestBody.put("serverip", serverip);
 			requestBody.put("port", port1);
+			requestBody.put("user_id", user_id);
+			requestBody.put("user_pw", user_pw);
 			//  System.out.println("closeGate01 requestBody : "+ requestBody);
 			
 			// 요청 헤더 설정
@@ -441,7 +464,7 @@ public class MainController {
 	        @RequestBody  String req
 	        ) {
 
-	   //  //  System.out.println("cameraNameList req: " + req);
+//	       System.out.println("cameraNameList req: " + req);
 
 	    String ipAddress;
 	    String port;
@@ -464,6 +487,8 @@ public class MainController {
 	        String serverip = jsonObject.getString("serverip");
 	        String query = jsonObject.getString("query");
 	        int port1 = jsonObject.getInt("port");
+	        String user_id = jsonObject.getString("user_id");
+	        String user_pw = jsonObject.getString("user_pw");
 	       //  //  System.out.println("cameraName serverip : "+ serverip);
 	       //  //  System.out.println("cameraName query : "+ query);
 
@@ -475,6 +500,8 @@ public class MainController {
 	        requestBody.put("query", query);
 	        requestBody.put("serverip", serverip);
 	        requestBody.put("port", port1);
+	        requestBody.put("user_id", user_id);
+	        requestBody.put("user_pw", user_pw);
 	       //  //  System.out.println("cameraName requestBody : "+ requestBody);
 
 	        // 요청 헤더 설정
@@ -487,7 +514,7 @@ public class MainController {
 	        // post 요청 보내기
 	        String execute_url_resp = restTemplate.postForObject(execute_url, requestEntity, String.class);
 
-	       //  //  System.out.print("execute_url_resp"+ execute_url_resp);
+//	           System.out.print("execute_url_resp"+ execute_url_resp);
 	        
 	        // 응답 데이터를 클라이언트에 반환
 	        return execute_url_resp;
@@ -514,7 +541,7 @@ public class MainController {
 			@RequestBody  String req
 			) {
 		
-		//  System.out.println("cameraNameList01 req: " + req);
+//		  System.out.println("cameraNameList01 req: " + req);
 		
 		String ipAddress;
 		String port;
@@ -536,7 +563,9 @@ public class MainController {
 			JSONObject jsonObject = new JSONObject(req);
 			String serverip = jsonObject.getString("serverip");
 			String query = jsonObject.getString("query");
-		       int port1 = jsonObject.getInt("port");
+	        int port1 = jsonObject.getInt("port");
+	        String user_id = jsonObject.getString("user_id");
+	        String user_pw = jsonObject.getString("user_pw");
 			//  System.out.println("cameraName serverip : "+ serverip);
 			//  System.out.println("cameraName query : "+ query);
 			
@@ -548,6 +577,8 @@ public class MainController {
 			requestBody.put("query", query);
 			requestBody.put("serverip", serverip);
 			requestBody.put("port", port1);
+			requestBody.put("user_id", user_id);
+			requestBody.put("user_pw", user_pw);
 			//  System.out.println("cameraName requestBody : "+ requestBody);
 			
 			// 요청 헤더 설정
@@ -560,7 +591,7 @@ public class MainController {
 			// post 요청 보내기
 			String select_url_resp = restTemplate.postForObject(select_url, requestEntity, String.class);
 			
-			//  System.out.println("select_url_resp"+ select_url_resp);
+//			  System.out.println("select_url_resp"+ select_url_resp);
 			
 			// 응답 데이터를 클라이언트에 반환
 			return select_url_resp;
@@ -587,7 +618,7 @@ public class MainController {
 	public String lineChartData(
 			@RequestBody  String req
 			) {
-		//  System.out.println("lineData req: " + req);
+//		  System.out.println("lineData req: " + req);
 		
 		String ipAddress;
 		String port;
@@ -609,7 +640,9 @@ public class MainController {
 			JSONObject jsonObject = new JSONObject(req);
 			String serverip = jsonObject.getString("serverip");
 			String query = jsonObject.getString("query");
-		       int port1 = jsonObject.getInt("port");
+	        int port1 = jsonObject.getInt("port");
+	        String user_id = jsonObject.getString("user_id");
+	        String user_pw = jsonObject.getString("user_pw");
 			//  System.out.println("lineData execute serverip : "+ serverip);
 			//  System.out.println("lineData execute query : "+ query);
 			
@@ -621,6 +654,8 @@ public class MainController {
 			requestBody.put("query", query);
 			requestBody.put("serverip", serverip);
 			requestBody.put("port", port1);
+			requestBody.put("user_id", user_id);
+			requestBody.put("user_pw", user_pw);
 			//  System.out.println("lineData requestBody : "+ requestBody);
 			
 			// 요청 헤더 설정
@@ -657,7 +692,7 @@ public class MainController {
 	public String lineChartData01(
 			@RequestBody  String req
 			) {
-		 	//  System.out.println("lineData req: " + req);
+//		 	  System.out.println("lineDataList01 req: " + req);
 
 		    String ipAddress;
 		    String port;
@@ -680,6 +715,8 @@ public class MainController {
 		        String serverip = jsonObject.getString("serverip");
 		        String query = jsonObject.getString("query");
 		        int port1 = jsonObject.getInt("port");
+		        String user_id = jsonObject.getString("user_id");
+		        String user_pw = jsonObject.getString("user_pw");
 		       //  //  System.out.println("lineData serverip : "+ serverip);
 		       //  //  System.out.println("lineData query : "+ query);
 
@@ -691,6 +728,8 @@ public class MainController {
 		        requestBody.put("query", query);
 		        requestBody.put("serverip", serverip);
 		        requestBody.put("port", port1);
+		        requestBody.put("user_id", user_id);
+				requestBody.put("user_pw", user_pw);
 		       //  //  System.out.println("lineData requestBody : "+ requestBody);
 
 		        // 요청 헤더 설정
@@ -751,7 +790,9 @@ public class MainController {
 			JSONObject jsonObject = new JSONObject(req);
 			String serverip = jsonObject.getString("serverip");
 			String query = jsonObject.getString("query");
-		       int port1 = jsonObject.getInt("port");
+		    int port1 = jsonObject.getInt("port");
+	        String user_id = jsonObject.getString("user_id");
+	        String user_pw = jsonObject.getString("user_pw");
 //			System.out.println("tableData serverip : "+ serverip);
 //			System.out.println("tableData query : "+ query);
 			
@@ -763,6 +804,8 @@ public class MainController {
 			requestBody.put("query", query);
 			requestBody.put("serverip", serverip);
 			requestBody.put("port", port1);
+			requestBody.put("user_id", user_id);
+			requestBody.put("user_pw", user_pw);
 //			System.out.println("tableData requestBody : "+ requestBody);
 			
 			// 요청 헤더 설정
@@ -827,6 +870,8 @@ public class MainController {
 			String serverip = jsonObject.getString("serverip");
 			String query = jsonObject.getString("query");
 		       int port1 = jsonObject.getInt("port");
+		       String user_id = jsonObject.getString("user_id");
+		       String user_pw = jsonObject.getString("user_pw");
 //			  System.out.println("tableData01 serverip : "+ serverip);
 //			  System.out.println("tableData01 query : "+ query);
 			
@@ -838,6 +883,8 @@ public class MainController {
 			requestBody.put("query", query);
 			requestBody.put("serverip", serverip);
 			requestBody.put("port", port1);
+			requestBody.put("user_id", user_id);
+			requestBody.put("user_pw", user_pw);
 			//  System.out.println("tableData01 requestBody : "+ requestBody);
 			
 			// 요청 헤더 설정
@@ -877,7 +924,7 @@ public class MainController {
 			@RequestBody  String req
 			) {
 		
-		//  System.out.println("liveData req: " + req);
+//		  System.out.println("liveData req: " + req);
 		
 			String ipAddress;
 			String port;
@@ -899,7 +946,9 @@ public class MainController {
 				JSONObject jsonObject = new JSONObject(req);
 				String serverip = jsonObject.getString("serverip");
 				String query = jsonObject.getString("query");
-			       int port1 = jsonObject.getInt("port");
+		        int port1 = jsonObject.getInt("port");
+		        String user_id = jsonObject.getString("user_id");
+		        String user_pw = jsonObject.getString("user_pw");
 				//  System.out.println("liveData serverip : "+ serverip);
 				//  System.out.println("liveData query : "+ query);
 				
@@ -911,6 +960,8 @@ public class MainController {
 				requestBody.put("query", query);
 				requestBody.put("serverip", serverip);
 				requestBody.put("port", port1);
+				requestBody.put("user_id", user_id);
+				requestBody.put("user_pw", user_pw);
 				//  System.out.println("liveData requestBody : "+ requestBody);
 				
 				// 요청 헤더 설정
@@ -948,7 +999,7 @@ public class MainController {
 	public String liveDataList01(
 			@RequestBody  String req
 			) {
-			//  System.out.println("liveData01 req: " + req);
+//			  System.out.println("liveData01 req: " + req);
 		
 			String ipAddress;
 			String port;
@@ -970,7 +1021,9 @@ public class MainController {
 				JSONObject jsonObject = new JSONObject(req);
 				String serverip = jsonObject.getString("serverip");
 				String query = jsonObject.getString("query");
-			       int port1 = jsonObject.getInt("port");
+		        int port1 = jsonObject.getInt("port");
+		        String user_id = jsonObject.getString("user_id");
+		        String user_pw = jsonObject.getString("user_pw");
 				//  System.out.println("liveData01 serverip : "+ serverip);
 				//  System.out.println("liveData01 query : "+ query);
 				
@@ -982,6 +1035,8 @@ public class MainController {
 				requestBody.put("query", query);
 				requestBody.put("serverip", serverip);
 				requestBody.put("port", port1);
+				requestBody.put("user_id", user_id);
+				requestBody.put("user_pw", user_pw);
 				//  System.out.println("liveData01 requestBody : "+ requestBody);
 				
 				// 요청 헤더 설정
